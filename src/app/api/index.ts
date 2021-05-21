@@ -1,14 +1,19 @@
-interface Backend {
+import {Backend } from './backend';
 
+export type APIs = {
+    dev: Backend|null,
+    test:Backend|null,
+    prod:Backend|null
+}
+
+
+export const apis: APIs = {
+    dev: null,
+    test: null,
+    prod: null,
 };
 
-export const apis = {
-    dev: '' as Backend,
-    test: '' as Backend,
-    prod: '' as Backend,
-};
-
-const withStageController: Backend = (a: typeof apis) => {
+const withStageController = (a: APIs): Backend|null=> {
     if (process.env.NODE_ENV === 'development') {
         return a.dev;
     } else if (process.env.NODE_ENV === 'test') {
@@ -17,5 +22,7 @@ const withStageController: Backend = (a: typeof apis) => {
         return a.prod;
     }
 } 
+
+withStageController(apis)
 
 export default withStageController(apis);
