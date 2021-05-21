@@ -1,7 +1,7 @@
 export enum BackendProvider {
     FIREBASE = 'firebase',
 }
-export interface Backend {
+export interface Backend extends BackendAuth,BackendStorage{
     version: string,
     provider: BackendProvider,
     auth: BackendAuth,
@@ -19,8 +19,8 @@ interface BackendAuth {
 }
 
 interface BackendStorage {
-    put: (file: Blob) => Promise<any>,
-    get: any,
-    delete: any,
-    patch: any
+    putFile: (file: Blob) => Promise<any>,
+    getFile: (key: string) => Promise<Blob>,
+    deleteFile: (key: string) => Promise<any>,
+    patchFile: (key:string, file: Blob) => Promise<any>
 }
