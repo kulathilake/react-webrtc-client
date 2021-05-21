@@ -1,16 +1,16 @@
 import {AuthProvider} from "../common/interfaces/provider.types";
+import { User } from "../common/interfaces/user.interface";
 
 export interface Backend extends BackendAuth,BackendStorage{
-    auth: BackendAuth,
-    storage: BackendStorage,
+    
 };
 
 
 interface BackendAuth {
     signup(email:string, password: string): Promise<any>,
     signup(provider: AuthProvider): Promise<any>,
-    login(email: string, password: string): Promise<any>,
-    login(provider: AuthProvider): Promise<any>
+    login(email: string, password: string): Promise<User>,
+    federatedLogin(provider: AuthProvider): Promise<User>
     logout():void,
     reset(email: string): Promise<any>,
     resetConfirm(email: string, code: string): Promise<any>,
