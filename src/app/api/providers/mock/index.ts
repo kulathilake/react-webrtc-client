@@ -1,3 +1,5 @@
-// import { Backend, BackendProvider } from "../../backend";
+import { Backend } from "../../backend.interface";
 
-export {}
+export default class MockBackend {
+    test = 1;
+}
