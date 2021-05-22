@@ -2,13 +2,13 @@ import {AuthProvider} from "../common/interfaces/provider.types";
 import { User } from "../common/interfaces/user.interface";
 
 export interface Backend extends BackendAuth,BackendStorage{
-    
+    accessToken: string | null;
 };
 
 
 interface BackendAuth {
-    signup(email:string, password: string): Promise<any>,
-    federatedSignup(provider: AuthProvider): Promise<any>,
+    signup(email:string, password: string): Promise<User>,
+    federatedSignup(provider: AuthProvider): Promise<User>,
     login(email: string, password: string): Promise<User>,
     federatedLogin(provider: AuthProvider): Promise<User>
     logout():void,
@@ -20,12 +20,12 @@ interface BackendAuth {
 }
 
 interface BackendStorage {
-    putFile: (file: Blob) => Promise<any>,
-    getFile: (key: string) => Promise<Blob>,
-    deleteFile: (key: string) => Promise<any>,
-    patchFile: (key:string, file: Blob) => Promise<any>
+    putFile(file: Blob): Promise<any>,
+    getFile(key: string): Promise<Blob>,
+    deleteFile(key: string): Promise<any>,
+    patchFile(key:string, file: Blob): Promise<any>
 }
 
 interface BackendProfile {
-    
+    getProfile():any
 }

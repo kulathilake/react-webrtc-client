@@ -7,3 +7,13 @@ export class LoginError extends Error {
         this.message = message;
     }
 }
+
+export class SignupError extends Error {
+    message: string;
+    name: string = 'SIGNUP_EXCETION';
+
+    constructor(message: string) {
+        super();
+        this.message = message;
+    }
+}

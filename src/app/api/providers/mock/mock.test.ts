@@ -1,6 +1,4 @@
 import MockBackend from ".";
-import { User } from "../../../common/interfaces/user.interface";
-import { LoginError } from '../../../common/errors';
 import { AuthProvider } from "../../../common/interfaces/provider.types";
 
 let mockbackend: MockBackend;
@@ -20,9 +18,11 @@ describe('Mock Backend Tests', function() {
     test('Login With Valid Email and Password', function(){
         const email = 'dev@rupasutra.com';
         const pw = 'RupasutraDev!';
-
         return expect(mockbackend.login(email,pw))
-        .resolves.toHaveProperty('tokens');
+        .resolves.toHaveProperty('tokens')
+        .then(()=>{
+            expect(mockbackend.accessToken).not.toBeNull()
+        })
         
 
     });
@@ -33,14 +33,31 @@ describe('Mock Backend Tests', function() {
         return expect(mockbackend.login(email,pw))
         .rejects.toThrow('Invalid Credentials');
         
-    })
+    });
 
-    test('Successful Federated Login', function() {
+
+    test('Successful Federated Login (eg: Facebook)', function() {
         return expect(mockbackend.federatedLogin(AuthProvider.FACEBOOK))
         .resolves.toHaveProperty('tokens');
-    })
+    });
 
-    
+    test('Successful Signup with Email and Password', function() {
+        const email = 'new@rupasutra.com';
+        const password = 'newPassword!';
+        return expect(mockbackend.signup(email,password))
+        .resolves.toHaveProperty('tokens')
+        .then(()=>{
+            expect(mockbackend.accessToken).not.toBeNull();
+        })
+    });
+
+    test('Successful Federated Signup (eg: Google)', function() {
+        return expect(mockbackend.federatedSignup(AuthProvider.GOOGLE))
+        .resolves.toHaveProperty('tokens')
+        .then(()=>{
+            expect(mockbackend.accessToken).not.toBeNull();
+        })
+    });
 
 })
 export{};
