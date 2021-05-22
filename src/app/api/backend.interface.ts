@@ -1,7 +1,7 @@
 import {AuthProvider} from "../common/interfaces/provider.types";
 import { User } from "../common/interfaces/user.interface";
 
-export interface Backend extends BackendAuth,BackendStorage{
+export interface Backend extends BackendAuth, BackendStorage, BackendProfile{
     accessToken: string | null;
 };
 

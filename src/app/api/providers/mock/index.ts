@@ -3,21 +3,30 @@ import { AuthProvider } from "../../../common/interfaces/provider.types";
 import { User } from "../../../common/interfaces/user.interface";
 import { Backend } from "../../backend.interface";
 
-
-
-export default class MockBackend implements Backend{
-    accessToken: string | null = null;
-    private user = {
-        email: '',
+function getFakeUser(email?: string) {
+    return {
+        email: email || 'email@provider.com',
         avatar: '/assets/icons/user.png',
         tokens: {
             accessToken: {
-                data: 'xxxxxx',
+                data: 'xxxxx',
+                ttl: 3600,
+            },
+            refreshToken: {
+                data: 'refresh',
                 ttl: 36000,
             }
         }
-    }  
+    } ;
+}
 
+export default class MockBackend implements Backend{
+
+    accessToken: string | null = null;
+
+
+    /* Authentication Methods */
+    
     /**
      * Sends a Login with Email and Password request
      * @param email string
@@ -29,9 +38,9 @@ export default class MockBackend implements Backend{
        try {
            return new Promise(((res,rej)=>{
                if(email === 'dev@rupasutra.com'&& password === 'RupasutraDev!'){
-                    this.accessToken = this.user.tokens.accessToken.data;
-                    this.user.email = email;
-                    res(this.user);
+                  let user = getFakeUser(email);      
+                  this.accessToken = user.tokens.accessToken.data;
+                  res(user);
                } else {
                     rej(new Error('Invalid Credentials'))
                }
@@ -49,22 +58,29 @@ export default class MockBackend implements Backend{
     async federatedLogin(proivder: AuthProvider): Promise<User> {
        try {
            return new Promise(res => {
-            this.accessToken = this.user.tokens.accessToken.data;
-            this.user.email = 'email@provider.com';
-            res(this.user);
+            let user = getFakeUser();
+            this.accessToken = user.tokens.accessToken.data;
+            res(user);
            })
        } catch (error) {
            throw new LoginError(error.message);
        }
     };
 
+    /**
+     * Sends Sign up with email password request
+     * @param email string
+     * @param password string
+     * @returns User
+     */
     async signup(email: string, password: string): Promise<User>{
         try {
             return new Promise((res,rej) => {
-                if(email !== this.user.email) {
-                    this.user.email = email;
-                    this.accessToken = this.user.tokens.accessToken.data;
-                    res(this.user);
+                let user = getFakeUser();      
+                if(email !== user.email) {
+                    this.accessToken = user.tokens.accessToken.data;
+                    user.email = email;
+                    res(user);
                 } else {
                     rej( new SignupError('User Already Exists'))
                 }
@@ -75,11 +91,17 @@ export default class MockBackend implements Backend{
 
     }
 
+    /**
+     * Sends Federated Sign Up Request
+     * @param provider AuthProvider
+     * @returns User
+     */
     async federatedSignup(provider: AuthProvider): Promise<User> {
         try {
             return new Promise((res,rej) => {
-                    this.user.email = 'email@provider.com';
-                    res(this.user);
+                let user = getFakeUser();
+                this.accessToken = user.tokens.accessToken.data;
+                res(user);
                 }
             )
         } catch (error) {
@@ -87,5 +109,43 @@ export default class MockBackend implements Backend{
         }
 
     }
+
+    logout(): void {
+        throw new Error("Method not implemented.");
+    }
+    reset(email: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    resetConfirm(email: string, code: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    confirmEmail(code: string, email: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    refresh(token: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    changePassword(oldPassword: string, newPassword: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+
+    /* File Storage Methods */
+    putFile(file: Blob): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    getFile(key: string): Promise<Blob> {
+        throw new Error("Method not implemented.");
+    }
+    deleteFile(key: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    patchFile(key: string, file: Blob): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+
+    /* Profile Methods */
+    getProfile() {
+        throw new Error("Method not implemented.");
+    };
 
 }
