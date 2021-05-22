@@ -1,6 +1,7 @@
 import MockBackend from ".";
 import { User } from "../../../common/interfaces/user.interface";
 import { LoginError } from '../../../common/errors';
+import { AuthProvider } from "../../../common/interfaces/provider.types";
 
 let mockbackend: MockBackend;
 
@@ -16,36 +17,30 @@ describe('Mock Backend Tests', function() {
         ... */
     });
 
-    test('Login With Valid Email and Password', function(done){
+    test('Login With Valid Email and Password', function(){
         const email = 'dev@rupasutra.com';
         const pw = 'RupasutraDev!';
 
-        mockbackend.login(email,pw)
-        .then((res: User):void =>{
-            if(res){
-                expect(res.email).toEqual('dev@rupasutra.com');
-            }
-            done();
-        })
-        .catch(done);
+        return expect(mockbackend.login(email,pw))
+        .resolves.toHaveProperty('tokens');
+        
 
     });
 
-    test('Login With Invalid Email and Password', function(done){
+    test('Login with invalid Email and Passowrd', function() {
         const email = 'invalid@rupasutra.com';
-        const pw = 'RupasutraDev!';
+        const pw = 'RupasutraDee';
+        return expect(mockbackend.login(email,pw))
+        .rejects.toThrow('Invalid Credentials');
+        
+    })
 
-        expect(()=>{
-            mockbackend.login(email,pw)
-            .catch(e=>{
-                console.log(e.message);
-                throw e;
-            })
-        }).toThrowError(LoginError)
+    test('Successful Federated Login', function() {
+        return expect(mockbackend.federatedLogin(AuthProvider.FACEBOOK))
+        .resolves.toHaveProperty('tokens');
+    })
 
-    });
-
-
+    
 
 })
 export{};

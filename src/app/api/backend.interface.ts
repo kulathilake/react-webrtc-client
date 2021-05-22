@@ -8,7 +8,7 @@ export interface Backend extends BackendAuth,BackendStorage{
 
 interface BackendAuth {
     signup(email:string, password: string): Promise<any>,
-    signup(provider: AuthProvider): Promise<any>,
+    federatedSignup(provider: AuthProvider): Promise<any>,
     login(email: string, password: string): Promise<User>,
     federatedLogin(provider: AuthProvider): Promise<User>
     logout():void,
@@ -24,4 +24,8 @@ interface BackendStorage {
     getFile: (key: string) => Promise<Blob>,
     deleteFile: (key: string) => Promise<any>,
     patchFile: (key:string, file: Blob) => Promise<any>
+}
+
+interface BackendProfile {
+    
 }
