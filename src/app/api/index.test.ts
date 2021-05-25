@@ -12,13 +12,13 @@ describe('API With Stage Controller Testing', function(){
     });
     
     test('NODE_ENV=development', function(){
-        process.env.NODE_ENV = 'development';
+        process.env.REACT_APP_STAGE = 'development';
         const api = require('./index');
         expect(api.default.constructor.name).toEqual('MockBackend');
     });
 
     test('NODE_ENV=test / prod', function(){
-        process.env.NODE_ENV = 'test';
+        process.env.REACT_APP_STAGE = 'test';
         const api = require('./index');
         expect(api.default.constructor.name).not.toEqual('MockBackend');
     });

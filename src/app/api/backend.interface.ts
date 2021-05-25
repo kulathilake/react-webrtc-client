@@ -10,10 +10,11 @@ export interface Backend {
     storage: BackendStorage;
     exams: BackendExam;
     attempt: BackendAttempt;
+    setAccessToken(token: string) : void;
 };
 
 // Backend Essentials.
-interface BackendAuth {
+export interface BackendAuth {
     signup(email:string, password: string): Promise<User>,
     federatedSignup(provider: AuthProvider): Promise<User>,
     login(email: string, password: string): Promise<User>,
@@ -24,11 +25,10 @@ interface BackendAuth {
     confirmEmail(code:string,email:string): Promise<any>,
     refresh(token: string): Promise<any>,
     changePassword(oldPassword: string, newPassword: string): Promise<any>
-    current: {
-        user(): User,
-        userProfile(): UserProfile;
-        session(): any;
-    }
+    getUser(): User,
+    getUserProfile(): UserProfile;
+    getSession(): any;
+    
 }
 
 export interface BackendStorage {

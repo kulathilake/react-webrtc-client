@@ -9,9 +9,9 @@ const apis = {
 };
 
 const withStageController = (a: typeof apis): Backend => {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.REACT_APP_STAGE === 'development') {
             return a.dev;
-        } else if (process.env.NODE_ENV === 'test') {
+        } else if (process.env.REACT_APP_STAGE === 'test') {
             return a.test; 
         } else {
             return a.prod;
