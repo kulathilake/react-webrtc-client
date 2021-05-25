@@ -1,11 +1,18 @@
+import { Attempt } from "../common/interfaces/attempt.interface";
+import { Candidate } from "../common/interfaces/candidate.interface";
+import { Exam } from "../common/interfaces/exam.interface";
 import {AuthProvider} from "../common/interfaces/provider.types";
-import { User } from "../common/interfaces/user.interface";
+import { User, UserProfile } from "../common/interfaces/user.interface";
 
-export interface Backend extends BackendAuth, BackendStorage, BackendProfile{
+export interface Backend {
     accessToken: string | null;
+    auth: BackendAuth;
+    storage: BackendStorage;
+    exams: BackendExam;
+    attempt: BackendAttempt;
 };
 
-
+// Backend Essentials.
 interface BackendAuth {
     signup(email:string, password: string): Promise<User>,
     federatedSignup(provider: AuthProvider): Promise<User>,
@@ -17,15 +24,36 @@ interface BackendAuth {
     confirmEmail(code:string,email:string): Promise<any>,
     refresh(token: string): Promise<any>,
     changePassword(oldPassword: string, newPassword: string): Promise<any>
+    current: {
+        user(): User,
+        userProfile(): UserProfile;
+        session(): any;
+    }
 }
 
-interface BackendStorage {
+export interface BackendStorage {
     putFile(file: Blob): Promise<any>,
     getFile(key: string): Promise<Blob>,
     deleteFile(key: string): Promise<any>,
     patchFile(key:string, file: Blob): Promise<any>
 }
 
-interface BackendProfile {
-    getProfile():any
+export interface BackendExam {
+    getExam(examId: string): Promise<Exam>;
+    getExams(last: Exam): Promise<Exam[]>;
+    getExamCandidates(examId: string, last: Candidate): Promise<Candidate[]>;
+    createNewExam(): Promise<Exam>; 
+    updateExam(id:string, exam: Exam): Promise<void>;
+    deleteExam(id: Exam): Promise<void>;
+    changeCandidateStatus(candidate: Candidate): Promise<void>;
+    
+
+}
+
+
+export interface BackendAttempt {
+    getAttempt(email:string, otp: string, signedString: string): Promise<Attempt>; 
+    getExamSecret(attempt: Attempt): Promise<string>;
+    checkSystemClock(timestamp: number): Promise<string>;
+    submitAttempt(attempt: Attempt): Promise<void>;
 }

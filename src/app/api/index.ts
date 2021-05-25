@@ -1,11 +1,11 @@
 import {Backend} from './backend.interface';
-import FirebaseBackend from './providers/firebase';
-import MockBackend from './providers/mock';
+import FirebaseBackend from './backendimpl/firebase';
+import MockBackend from './backendimpl/mock';
 
 const apis = {
     dev: new MockBackend(),      // An stubbed backend.
     test: new FirebaseBackend(), // Both Production and Test modes will use the same
-    prod: new FirebaseBackend(), // Class, but take configurations from different. envs.
+    prod: new FirebaseBackend(), // class, but take configurations from different. envs.
 };
 
 const withStageController = (a: typeof apis): Backend => {
