@@ -41,19 +41,18 @@ export interface BackendStorage {
 export interface BackendExam {
     getExam(examId: string): Promise<Exam>;
     getExams(last: Exam): Promise<Exam[]>;
-    getExamCandidates(examId: string, last: Candidate): Promise<Candidate[]>;
     createNewExam(): Promise<Exam>; 
     updateExam(id:string, exam: Exam): Promise<void>;
     deleteExam(id: Exam): Promise<void>;
+    getExamCandidates(examId: string, last: Candidate): Promise<Candidate[]>;
     changeCandidateStatus(candidate: Candidate): Promise<void>;
     
-
 }
 
 
 export interface BackendAttempt {
     getAttempt(email:string, otp: string, signedString: string): Promise<Attempt>; 
-    getExamSecret(attempt: Attempt): Promise<string>;
+    getExamSecret(attempt: Attempt, candidate: Candidate): Promise<JSON>;
     checkSystemClock(timestamp: number): Promise<string>;
     submitAttempt(attempt: Attempt): Promise<void>;
 }
