@@ -1,10 +1,9 @@
-import MockBackend from "../../../../app/api/backendimpl/mock";
 import { Candidate } from "../../../../app/common/interfaces/candidate.interface";
 import { Exam } from "../../../../app/common/interfaces/exam.interface";
 import { ExamBackend } from "../exambackend.interface";
 
 
-export default class ExamBackendMockImpl extends MockBackend implements ExamBackend {
+export default class ExamBackendMockImpl implements ExamBackend {
     
     getExam(examId: string): Promise<Exam> {
         throw new Error("Method not implemented.");
