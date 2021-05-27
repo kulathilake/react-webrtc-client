@@ -1,7 +1,8 @@
-import { Candidate } from "../../app/common/interfaces/candidate.interface";
-import { Exam } from "../../app/common/interfaces/exam.interface";
+import MockBackend from "../../../app/api/backendimpl/mock";
+import { Candidate } from "../../../app/common/interfaces/candidate.interface";
+import { Exam } from "../../../app/common/interfaces/exam.interface";
 
-export interface BackendExam {
+export interface ExamBackend extends MockBackend {
     getExam(examId: string): Promise<Exam>;
     getExams(last: Exam): Promise<Exam[]>;
     createNewExam(): Promise<Exam>; 
