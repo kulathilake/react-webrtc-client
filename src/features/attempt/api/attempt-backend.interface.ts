@@ -1,5 +1,5 @@
-import { Attempt } from "../../app/common/interfaces/attempt.interface";
-import { Candidate } from "../../app/common/interfaces/candidate.interface";
+import { Attempt } from "../../../app/common/interfaces/attempt.interface";
+import { Candidate } from "../../../app/common/interfaces/candidate.interface";
 
 export interface BackendAttempt {
     getAttempt(email:string, otp: string, signedString: string): Promise<Attempt>; 
