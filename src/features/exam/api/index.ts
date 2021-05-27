@@ -1,4 +1,4 @@
-import { ExamBackend } from "./exams-backend.interface";
+import { ExamBackend } from "./exambackend.interface";
 import ExamBackendFirebaseImpl from "./impl/examBackendFirebaseImpl";
 import ExamBackendMockImpl from "./impl/examBackendMockImpl";
 
