@@ -1,10 +1,9 @@
-import MockBackend from "../../../../app/api/backendimpl/mock";
+import FirebaseBackend from "../../../../app/api/backendimpl/firebase";
 import { Candidate } from "../../../../app/common/interfaces/candidate.interface";
 import { Exam } from "../../../../app/common/interfaces/exam.interface";
-import { ExamBackend } from "../exams-backend.interface";
+import { ExamBackend } from "../exambackend.interface";
 
-export default class MockExamBackendImpl extends MockBackend implements ExamBackend {
-    
+export default class ExamBackendFirebaseImpl extends FirebaseBackend implements ExamBackend {
     getExam(examId: string): Promise<Exam> {
         throw new Error("Method not implemented.");
     }
@@ -26,5 +25,5 @@ export default class MockExamBackendImpl extends MockBackend implements ExamBack
     changeCandidateStatus(candidate: Candidate): Promise<void> {
         throw new Error("Method not implemented.");
     }
-
-} 
+    
+}
