@@ -1,0 +1,50 @@
+{
+    "exams": [
+        {
+            "id": "xam-x-001", 
+            "title": "Organic Chemistry - Monthly Test April 2022",
+            "schedule": {
+                "start": "10-04-2022T08:30",
+                "end": "10-04-2022T09:30",
+                "duration": 3600
+            }
+
+        },
+        {
+            "id": "xam-x-002", 
+            "title": "Organic Chemistry - Monthly Test May 2022",
+            "schedule": {
+                "start": "10-05-2022T08:30",
+                "end": "10-05-2022T09:30",
+                "duration": 3600
+            }
+        }
+    ],
+
+    "questions": [
+        {
+            "examId": "xam-x-001",
+            "id": "xam-q-001",
+            "title": "Encrypted Text - Title",
+            "text": "Encrypted Text - Text", 
+            "mark": 10,
+            "parentId": null
+        },
+        {
+            "examId": "xam-x-002",
+            "id": "xam-q-002",
+            "title": "Encrypted Text - Title",
+            "text": "Encrypted Text - Text", 
+            "mark": 10,
+            "parentId": null
+        },
+        {
+            "examId": "xam-x-001",
+            "id": "xam-q-003",
+            "title": "Encrypted Text - Title",
+            "text": "Encrypted Text - Text", 
+            "mark": 10,
+            "parentId": null
+        }
+    ]
+}

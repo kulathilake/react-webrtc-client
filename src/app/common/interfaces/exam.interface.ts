@@ -1,3 +1,4 @@
+import { ExamSchedule } from "../types/exam.types";
 import { Candidate } from "./candidate.interface";
 
 export interface Exam {
@@ -32,14 +33,3 @@ export interface ExamQuestion {
     reorderChildQuestion(question:ExamQuestion, newPosition: number): void;
 }
 
-export type ExamSampleAnswer = {
-    examId: string;
-    questionId: string;
-    answer: string;
-}
-
-export type ExamSchedule = {
-    start: Date;
-    end: Date;
-    duration: number;
-};
