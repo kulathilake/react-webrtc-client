@@ -1,4 +1,3 @@
-import { Candidate } from "../../../app/common/interfaces/candidate.interface";
 import { CandidateDTO, CandidateStatus } from "../../../app/common/types/candidate.types";
 import { ExamDTO, QuestionDTO } from "../../../app/common/types/exam.types";
 
