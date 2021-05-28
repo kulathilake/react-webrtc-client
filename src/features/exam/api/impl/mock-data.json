@@ -7,7 +7,8 @@
                 "start": "10-04-2022T08:30",
                 "end": "10-04-2022T09:30",
                 "duration": 3600
-            }
+            },
+            "status": "pending"
 
         },
         {
@@ -17,7 +18,8 @@
                 "start": "10-05-2022T08:30",
                 "end": "10-05-2022T09:30",
                 "duration": 3600
-            }
+            },
+            "status": "pending"
         }
     ],
 
@@ -45,6 +47,26 @@
             "text": "Encrypted Text - Text", 
             "mark": 10,
             "parentId": null
+        }
+    ],
+    "candidates": [
+        {
+            "id": "xam-x-001-ca-001",
+            "examId": "xam-x-001",
+            "email": "candidate@gmail.com",
+            "status": "PENDING"
+        },
+        {
+            "id": "xam-x-001-ca-001",
+            "examId": "xam-x-001",
+            "email": "candidate@gmail.com",
+            "status": "PENDING"
+        },
+        {
+            "id": "xam-x-001-ca-001",
+            "examId": "xam-x-001",
+            "email": "candidate@gmail.com",
+            "status": "APPROVED"
         }
     ]
 }

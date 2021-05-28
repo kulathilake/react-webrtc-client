@@ -1,16 +1,19 @@
 import { Candidate } from "../../../app/common/interfaces/candidate.interface";
-import { Exam, ExamQuestion } from "../../../app/common/interfaces/exam.interface";
-import { ExamListItem, ExamQuestionListItem } from "../../../app/common/types/exam.types";
+import { CandidateDTO, CandidateStatus } from "../../../app/common/types/candidate.types";
+import { ExamDTO, QuestionDTO } from "../../../app/common/types/exam.types";
 
 export interface ExamBackend  {
-    getExam(id: string): Promise<ExamListItem>;
-    getExams(page?:number, offset?: number): Promise<ExamListItem[]>;
-    getQuestion(id: string): Promise<ExamQuestionListItem>;
-    getExamQuestions(id: string, page?: number, offset?: number): Promise<ExamQuestionListItem[]>;
-    createNewExam(exam: Exam): Promise<Exam>; 
-    updateExam(id:string, exam: Exam): Promise<void>;
-    deleteExam(id: Exam): Promise<void>;
-    getExamCandidates(examId: string, last: Candidate): Promise<Candidate[]>;
-    changeCandidateStatus(candidate: Candidate): Promise<void>;
+    getExam(id: string): Promise<ExamDTO>;
+    getExams(page?:number, offset?: number): Promise<ExamDTO[]>;
+    getQuestion(id: string): Promise<QuestionDTO>;
+    getExamQuestions(id: string, page?: number, offset?: number): Promise<QuestionDTO[]>;
+    createNewExam(exam: ExamDTO): Promise<ExamDTO>; 
+    createNewQuestion(question: QuestionDTO): Promise<void>;
+    updateExam(exam: ExamDTO): Promise<ExamDTO>;
+    updateQuestion(question: QuestionDTO): Promise<QuestionDTO>
+    deleteExam(id: string): Promise<void>;
+    deleteExamQuestion(id: string): Promise<void>;
+    getExamCandidates(examId: string, page?: number, offset?: number ): Promise<CandidateDTO[]>;
+    changeCandidateStatus(id: string, status: CandidateStatus): Promise<CandidateDTO>;
     
 }

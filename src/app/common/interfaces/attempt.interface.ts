@@ -1,5 +1,6 @@
-import { ExamQuestion, ExamSchedule } from "./exam.interface";
+import { ExamQuestion } from "./exam.interface";
 import { Candidate } from "./candidate.interface";
+import { ExamSchedule } from "../types/exam.types";
 
 export interface Attempt{
     examId: string;

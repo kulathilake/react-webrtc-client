@@ -1,15 +1,16 @@
 import { Author } from "../interfaces/author.interface";
 
-export type ExamListItem = {
-    id: string;
+export type ExamDTO = {
+    id?: string;
     title: string;
     schedule: ExamSchedule;
     author?: Author;
+    status?: 'pending' | 'done' | 'cancelled' | string
 }
 
-export type ExamQuestionListItem = {
+export type QuestionDTO = {
     examId: string;
-    id: string;
+    id?: string;
     title: string;
     text: string; 
     mark: number;
