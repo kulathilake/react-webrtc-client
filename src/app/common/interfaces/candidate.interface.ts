@@ -9,6 +9,7 @@ export interface Candidate {
     stringToSign: string;
     signature: string;
     status: CandidateStatus;
+    getStringToSign(): string;
     getCandidateKey(): Promise<JSON>;
     setSignature(key: JSON): Promise<void>;
 }

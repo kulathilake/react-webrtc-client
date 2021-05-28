@@ -1,8 +1,8 @@
-import { CandidateDTO, CandidateStatus } from "../../../../app/common/types/candidate.types";
-import { ExamDTO, QuestionDTO } from "../../../../app/common/types/exam.types";
-import { IExamBackend } from "../exam-backend.interface";
+import { CandidateDTO, CandidateStatus } from "../../../../../app/common/types/candidate.types";
+import { ExamDTO, QuestionDTO } from "../../../../../app/common/types/exam.types";
+import { IExamBackend } from "../../exam-backend.interface";
 
-export default class ExamBackendFirebaseImpl implements IExamBackend {
+export default class ExamBackendFirebase implements IExamBackend {
     getExam(id: string): Promise<ExamDTO> {
         throw new Error("Method not implemented.");
     }

@@ -1,11 +1,11 @@
 import { IExamBackend } from "./exam-backend.interface";
-import ExamBackendFirebaseImpl from "./impl/examBackendFirebaseImpl";
-import ExamBackendMockImpl from "./impl/examBackendMockImpl";
+import ExamBackendFirebase from "./impl/firebase/examBackendFirebaseImpl";
+import ExamBackendMock from "./impl/mock/examBackendMockImpl";
 
 const apis = {
-    dev:  new ExamBackendMockImpl(),      // An stubbed backend.
-    test: new ExamBackendFirebaseImpl(), // Both Production and Test modes will use the same
-    prod: new ExamBackendFirebaseImpl(), // class, but take configurations from different. envs.
+    dev:  new ExamBackendMock(),      // An stubbed backend.
+    test: new ExamBackendFirebase(), // Both Production and Test modes will use the same
+    prod: new ExamBackendFirebase(), // class, but take configurations from different. envs.
 };
 
 const withStageController = (a: typeof apis): IExamBackend | null=> {

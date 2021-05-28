@@ -54,19 +54,25 @@
             "id": "xam-x-001-ca-001",
             "examId": "xam-x-001",
             "email": "candidate@gmail.com",
-            "status": "PENDING"
+            "status": "PENDING",
+            "stringToSign": "Plain Text",
+            "signature": "Cipher Text"
         },
         {
-            "id": "xam-x-001-ca-001",
+            "id": "xam-x-001-ca-002",
             "examId": "xam-x-001",
             "email": "candidate@gmail.com",
-            "status": "PENDING"
+            "status": "PENDING",
+            "stringToSign": "Plain Text",
+            "signature": "Cipher Text"
         },
         {
-            "id": "xam-x-001-ca-001",
+            "id": "xam-x-001-ca-003",
             "examId": "xam-x-001",
             "email": "candidate@gmail.com",
-            "status": "APPROVED"
+            "status": "APPROVED",
+            "stringToSign": "Plain Text",
+            "signature": "Cipher Text"
         }
     ]
 }

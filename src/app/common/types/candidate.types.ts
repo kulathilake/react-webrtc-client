@@ -4,6 +4,8 @@ export type CandidateDTO = {
     examId: string;
     email: string;
     status: CandidateStatus;
+    stringToSign: string;
+    signature: string;
 }
 
 export enum CandidateStatus {

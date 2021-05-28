@@ -1,7 +1,7 @@
-import { CandidateStatus } from '../../../../app/common/types/candidate.types';
-import { ExamDTO, QuestionDTO } from '../../../../app/common/types/exam.types';
+import { CandidateStatus } from '../../../../../app/common/types/candidate.types';
+import { ExamDTO, QuestionDTO } from '../../../../../app/common/types/exam.types';
 import ExamBackendMockImpl from './examBackendMockImpl';
-import data from './mock-data.json';
+import data from '../../../../../app/common/data/mock-data.json';
 
 let backend = new ExamBackendMockImpl();
 
@@ -109,23 +109,6 @@ describe('Examination Backend Mock Implementation Tests', function() {
     
     });
 
-    test('Deletes an Exam from the Database', () => {
-        let id = data.exams[0].id;
-        return backend.deleteExam(id)
-        .then(res => {
-            return expect(data.exams[0].id).not.toEqual(id);
-        });
-    });
-
-    test('Deletes a Question from the Database', () => {
-        let id = data.questions[0].id;
-        return backend.deleteExamQuestion(id)
-        .then(res => {
-            return expect(data.questions[0].id).not.toEqual(id);
-
-        });
-    })
-
     test('Get all Candidates of an Examination', () => {
         let examId = data.exams[0].id;
         let length = data.candidates.filter(c=>c.examId===examId).length;
@@ -143,4 +126,21 @@ describe('Examination Backend Mock Implementation Tests', function() {
             return expect(res.status === status);
         })
     })
+    test('Deletes an Exam from the Database', () => {
+        let id = data.exams[0].id;
+        return backend.deleteExam(id)
+        .then(res => {
+            return expect(data.exams[0].id).not.toEqual(id);
+        });
+    });
+
+    test('Deletes a Question from the Database', () => {
+        let id = data.questions[0].id;
+        return backend.deleteExamQuestion(id)
+        .then(res => {
+            return expect(data.questions[0].id).not.toEqual(id);
+
+        });
+    })
+
 })
