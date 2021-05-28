@@ -8,7 +8,7 @@ export default class CandidateBackendMock implements ICandidateBackend {
 
     getCandidate(id: string, signature: string): Promise<CandidateDTO> {
         return new Promise((res,rej)=>{
-            let item = this.db.candidates.find((c:CandidateDTO)=>(c.id===id && c.signature===signature));
+            let item = this.db.candidates.find((c:any)=>(c.id===id && c.signature===signature));
             if(!!item){
                 res(item);
             } else {
@@ -38,7 +38,7 @@ export default class CandidateBackendMock implements ICandidateBackend {
     }
 
     unenroll(id: string, signature: string): Promise<void> {
-        let index = this.db.candidates.findIndex((c: CandidateDTO)=>(c.id === id && c.signature === signature));
+        let index = this.db.candidates.findIndex((c: any)=>(c.id === id && c.signature === signature));
         this.db.candidates.splice(index,1);
         return new Promise(res=>{
             res();

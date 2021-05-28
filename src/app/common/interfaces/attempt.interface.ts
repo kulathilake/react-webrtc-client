@@ -9,10 +9,12 @@ export interface Attempt{
     candidate: Candidate;
     questions: ExamQuestion[];
     answers: AttemptAnswer[];
-    decryptQuestions(key: JSON): void;
-    isWithinSchedule(schedule: ExamSchedule): Promise<boolean>;
+    decryptQuestions(key: string): void;
     addAnswer(answer: AttemptAnswer): void;
     getAnswer(questionId: string): AttemptAnswer;
+    beginAnswering(): void;
+    isWithinSchedule(): Promise<boolean>;
+    submit(): Promise<void>;
 }
 
 export interface AttemptAnswer {
@@ -20,4 +22,5 @@ export interface AttemptAnswer {
     question: ExamQuestion;
     answer: string;
     timestamp: number;
+    updateAnswer(answer: string): void;
 }

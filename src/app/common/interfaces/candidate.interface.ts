@@ -11,7 +11,7 @@ export interface Candidate {
     status: CandidateStatus;
     getStringToSign(): string;
     getCandidateKey(): Promise<JSON>;
-    setSignature(key: JSON): Promise<void>;
+    sign(key: string): Promise<void>;
 }
 
 export interface VerifiedCandidate extends Candidate {

@@ -5,7 +5,6 @@ export type CandidateDTO = {
     email: string;
     status: CandidateStatus;
     stringToSign: string;
-    signature: string;
 }
 
 export enum CandidateStatus {
