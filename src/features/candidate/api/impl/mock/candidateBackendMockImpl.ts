@@ -2,7 +2,6 @@ import { CandidateDTO, CandidateEnrollmentDTO, CandidateStatus } from '../../../
 import ICandidateBackend from '../../candidate-backend.interface';
 import data from '../../../../../app/common/data/mock-data.json';
 import { ExamDTO } from '../../../../../app/common/types/exam.types';
-import { generateString } from '../../../../../app/helpers/generateString';
 
 export default class CandidateBackendMock implements ICandidateBackend {
     private db: any = data;
