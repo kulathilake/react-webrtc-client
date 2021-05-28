@@ -1,9 +1,9 @@
 import { CandidateDTO, CandidateStatus } from "../../../../app/common/types/candidate.types";
 import { ExamDTO, QuestionDTO } from "../../../../app/common/types/exam.types";
-import { ExamBackend } from "../exambackend.interface";
+import { IExamBackend } from "../exam-backend.interface";
 import data from './mock-data.json'
 
-export default class ExamBackendMockImpl implements ExamBackend {
+export default class ExamBackendMockImpl implements IExamBackend {
    
     private db: any = {
         ...data

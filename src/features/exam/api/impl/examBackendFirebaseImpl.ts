@@ -1,28 +1,44 @@
-import { Candidate } from "../../../../app/common/interfaces/candidate.interface";
-import { Exam } from "../../../../app/common/interfaces/exam.interface";
-import { ExamBackend } from "../exambackend.interface";
+import { CandidateDTO, CandidateStatus } from "../../../../app/common/types/candidate.types";
+import { ExamDTO, QuestionDTO } from "../../../../app/common/types/exam.types";
+import { IExamBackend } from "../exam-backend.interface";
 
-export default class ExamBackendFirebaseImpl implements ExamBackend {
-    getExam(examId: string): Promise<Exam> {
+export default class ExamBackendFirebaseImpl implements IExamBackend {
+    getExam(id: string): Promise<ExamDTO> {
         throw new Error("Method not implemented.");
     }
-    getExams(last: Exam): Promise<Exam[]> {
+    getExams(page?: number, offset?: number): Promise<ExamDTO[]> {
         throw new Error("Method not implemented.");
     }
-    createNewExam(): Promise<Exam> {
+    getQuestion(id: string): Promise<QuestionDTO> {
         throw new Error("Method not implemented.");
     }
-    updateExam(id: string, exam: Exam): Promise<void> {
+    getExamQuestions(id: string, page?: number, offset?: number): Promise<QuestionDTO[]> {
         throw new Error("Method not implemented.");
     }
-    deleteExam(id: Exam): Promise<void> {
+    createNewExam(exam: ExamDTO): Promise<ExamDTO> {
         throw new Error("Method not implemented.");
     }
-    getExamCandidates(examId: string, last: Candidate): Promise<Candidate[]> {
+    createNewQuestion(question: QuestionDTO): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    changeCandidateStatus(candidate: Candidate): Promise<void> {
+    updateExam(exam: ExamDTO): Promise<ExamDTO> {
         throw new Error("Method not implemented.");
     }
+    updateQuestion(question: QuestionDTO): Promise<QuestionDTO> {
+        throw new Error("Method not implemented.");
+    }
+    deleteExam(id: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    deleteExamQuestion(id: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    getExamCandidates(examId: string, page?: number, offset?: number): Promise<CandidateDTO[]> {
+        throw new Error("Method not implemented.");
+    }
+    changeCandidateStatus(id: string, status: CandidateStatus): Promise<CandidateDTO> {
+        throw new Error("Method not implemented.");
+    }
+    
     
 }

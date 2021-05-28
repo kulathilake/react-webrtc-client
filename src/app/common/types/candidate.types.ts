@@ -11,3 +11,10 @@ export enum CandidateStatus {
     APPROVED,
     REJECTED
 }
+
+export type CandidateEnrollmentDTO = {
+    examId: string;
+    email: string;
+    stringToSign: string;
+    signature: string;
+}

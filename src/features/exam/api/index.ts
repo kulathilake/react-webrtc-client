@@ -1,4 +1,4 @@
-import { ExamBackend } from "./exambackend.interface";
+import { IExamBackend } from "./exam-backend.interface";
 import ExamBackendFirebaseImpl from "./impl/examBackendFirebaseImpl";
 import ExamBackendMockImpl from "./impl/examBackendMockImpl";
 
@@ -8,13 +8,13 @@ const apis = {
     prod: new ExamBackendFirebaseImpl(), // class, but take configurations from different. envs.
 };
 
-const withStageController = (a: typeof apis): ExamBackend => {
+const withStageController = (a: typeof apis): IExamBackend | null=> {
         if (process.env.REACT_APP_STAGE === 'development') {
             return a.dev;
         } else if (process.env.REACT_APP_STAGE === 'test') {
-            return a.test; 
+            return null 
         } else {
-            return a.prod;
+            return null;
         }
 } 
 

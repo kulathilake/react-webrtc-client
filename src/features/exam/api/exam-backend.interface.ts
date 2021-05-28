@@ -1,7 +1,7 @@
 import { CandidateDTO, CandidateStatus } from "../../../app/common/types/candidate.types";
 import { ExamDTO, QuestionDTO } from "../../../app/common/types/exam.types";
 
-export interface ExamBackend  {
+export interface IExamBackend  {
     getExam(id: string): Promise<ExamDTO>;
     getExams(page?:number, offset?: number): Promise<ExamDTO[]>;
     getQuestion(id: string): Promise<QuestionDTO>;

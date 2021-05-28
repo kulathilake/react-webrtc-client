@@ -7,11 +7,10 @@ export interface Candidate {
     email: string;
     otp: string;
     stringToSign: string;
-    cipher: string;
+    signature: string;
     status: CandidateStatus;
     getCandidateKey(): Promise<JSON>;
-    setCipher(key: JSON): Promise<void>;
-    isValidCipher(): Promise<boolean>;
+    setSignature(key: JSON): Promise<void>;
 }
 
 export interface VerifiedCandidate extends Candidate {
