@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div className="App">
-        <MainRoutes routes={routes}/>
+        <MainRoutes routes={routes} redirect='/login'/>
     </div>
   );
 }

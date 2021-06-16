@@ -2,9 +2,8 @@ import { BrowserRouter, Switch, Route, } from "react-router-dom";
 import { RouterProps } from "../../types/route.types";
 import withRouteProtection from "./withRouteProtection";
 
-const ProtectedRoute = withRouteProtection('/login');
-ProtectedRoute.displayName = "ProtectedRoute";
 export default function MainRoutes(props:RouterProps){
+    const ProtectedRoute = withRouteProtection(props.redirect);
     return (
         <BrowserRouter>
             <Switch>

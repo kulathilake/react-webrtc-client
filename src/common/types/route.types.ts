@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Permissions } from "./auth.types";
 
 export type Route = {
@@ -11,4 +11,5 @@ export type Route = {
 
 export type RouterProps = {
     routes: Route[];
+    redirect: ReactNode | string
 }
