@@ -1,4 +1,5 @@
 /**
+ * Change the return of the render method to customize.
  * Thanks to https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/error_boundaries/
  */
 import { Component, ErrorInfo, ReactNode } from "react";
