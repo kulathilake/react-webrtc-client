@@ -1,9 +1,10 @@
-import React, { ReactNode } from "react";
-import { Redirect, Route, RouteProps } from "react-router-dom";
+import { ReactNode } from "react";
+import { Route,Redirect, RouteProps} from "react-router-dom";
 import { useAuth } from "../../../app/hooks"
+import {Route as RouteType} from '../../../common/types/route.types';
 
-export default function withRouteProtection(redirect: string | ReactNode): React.FC<any> {
-    return function(props: RouteProps) {
+export default function withRouteProtection(redirect: string | ReactNode): React.FC<RouteProps & RouteType>{
+    return function(props) {
         const {isAuthenticated} = useAuth();
         /**
          * Checks if the user is authorized (isAuthenticated being true is a given)
@@ -26,7 +27,7 @@ export default function withRouteProtection(redirect: string | ReactNode): React
             };
         };
         return (
-        <Route {...props} render={() => {
+        <Route {...(props as RouteProps)} render={() => {
             return isAuthorized()?
                 props.children
                 : renderFallback();
