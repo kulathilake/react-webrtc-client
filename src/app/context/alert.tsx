@@ -1,15 +1,16 @@
 import { createContext, useState } from "react";
-const AlertContext = createContext<any>({});
+import { Alert, AlertContextType } from "../../common/types/alert.types";
+const AlertContext = createContext<AlertContextType>({} as AlertContextType);
 const {Consumer: AlertConsumer, Provider} = AlertContext;
 
 function AlertProvider(props: any) {
-    const [alertContext,setAlertContext] = useState<any>({
+    const [alert,setAlert] = useState<Alert>({
         message: null,
         severity: null,
-        show: false
+        show: false,
     });
 
-    return <Provider value={{alertContext, setAlertContext}}>
+    return <Provider value={{alert, setAlert}}>
         {props.alert}
         {props.children}
     </Provider>

@@ -1,6 +1,12 @@
 import { createContext, useState } from "react";
 import { User } from "../../common/interfaces/user.interface";
-const AuthContext = createContext<any>({}); //TODO: AuthContextInterface
+export type AuthContextType = {
+    isAuthenticated: boolean;
+    setIsAuthenticated: (value:boolean) => void;
+    user: User | null;
+    setUser: (user:User) => void;
+}
+const AuthContext = createContext<AuthContextType>({} as AuthContextType); //TODO: AuthContextInterface
 const {Consumer: AuthConsumer, Provider} = AuthContext;
 
 function AuthProvider(props: any) {
