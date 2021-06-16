@@ -1,3 +1,7 @@
+/**
+ * This file contains redux store configurations.
+ * Persisting the store to one of several modes of storage is setup with redux-persist
+ */
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { 
   persistStore, 

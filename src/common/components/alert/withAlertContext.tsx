@@ -2,7 +2,7 @@ import React from "react"
 import { useAlert } from "../../../app/hooks"
 import { AlertProps } from "../../types/alert.types";
 
-export default function withAlertContext (AlertComponent: React.ComponentType<AlertProps>): React.FC<any>{
+export default function withAlertContext (AlertComponent: React.ComponentType<AlertProps>): React.FC{
     return  () => {
         const {alert,setAlert} = useAlert();
         const handleAlertClose = () => {
@@ -15,7 +15,7 @@ export default function withAlertContext (AlertComponent: React.ComponentType<Al
                 alert.onClear();
             }
         }
-        return <AlertComponent {...{alert, handleAlertClose}}/>
+        return <AlertComponent alert={alert} handleAlertClose={handleAlertClose}/>
     }
     
 }
