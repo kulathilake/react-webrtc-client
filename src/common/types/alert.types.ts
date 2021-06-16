@@ -10,3 +10,7 @@ export type AlertContextType = {
     setAlert: (alert:Alert) => void;
 }
 
+export type AlertProps = {
+    alert: Alert,
+    handleAlertClose: ()=>void
+}
