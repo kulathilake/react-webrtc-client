@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Route,Redirect, RouteProps} from "react-router-dom";
 import { useAuth } from "../../../app/hooks"
 import {Route as RouteType} from '../../../common/types/route.types';
@@ -15,8 +15,7 @@ export default function withRouteProtection(redirect: string | ReactNode): React
          * @returns boolean
          */
         const isAuthorized = (): boolean=> {
-            if(!isAuthenticated) return false;
-            else return true;
+            return isAuthenticated;
             // TODO check current route permission requirements against user permissions.
         }
         const renderFallback = ():ReactNode => {
@@ -26,12 +25,14 @@ export default function withRouteProtection(redirect: string | ReactNode): React
                 return redirect
             };
         };
+
+        useEffect(()=>{
+            console.log("in")
+        },[isAuthenticated])
+
         return (
-        <Route {...(props as RouteProps)} render={() => {
-            return isAuthorized()?
-                props.children
-                : renderFallback();
-        }}>
+        <Route {...(props as RouteProps)}>
+            {isAuthorized()?props.children:renderFallback()}
         </Route>
             
         )
