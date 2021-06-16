@@ -8,3 +8,7 @@ export type Route = {
     isProtected: boolean;
     permissions?: Permissions[]
 }
+
+export type RouterProps = {
+    routes: Route[];
+}
