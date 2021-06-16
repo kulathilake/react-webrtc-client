@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
-import { Alert, AlertContextType } from "../../common/types/alert.types";
+import { Alert, AlertContextType, AlertProviderProps } from "../../common/types/alert.types";
 const AlertContext = createContext<AlertContextType>({} as AlertContextType);
 const {Consumer: AlertConsumer, Provider} = AlertContext;
 
-function AlertProvider(props: any) {
+function AlertProvider(props: AlertProviderProps) {
     const [alert,setAlert] = useState<Alert>({
         message: null,
         severity: null,
