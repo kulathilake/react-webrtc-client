@@ -11,7 +11,7 @@ export class AuthApi implements IAuthApi{
         }
     };
     
-    private constructor(){};
+    private constructor() {};
 
     signup(email: string, password: string): Promise<User> {
         throw new Error("Method not implemented.");

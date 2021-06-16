@@ -1,3 +1,5 @@
+import { Permissions } from "../types/auth.types";
+
 export interface User {
     username: string,
     tokens: {
@@ -10,5 +12,6 @@ export interface User {
             ttl?: number // miliseconds
         },
     },
+    permissions: Permissions []
     
 }

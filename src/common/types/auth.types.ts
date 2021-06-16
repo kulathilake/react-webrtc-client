@@ -6,3 +6,7 @@ export type AuthContextType = {
     user: User | null;
     setUser: (user:User) => void;
 }
+
+export enum Permissions {
+    
+}
