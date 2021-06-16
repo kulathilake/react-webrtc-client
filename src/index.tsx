@@ -7,14 +7,16 @@ import { PersistGate } from 'redux-persist/integration/react';
 import * as serviceWorker from './serviceWorker';
 import { AlertProvider } from './app/context/alert';
 import Alert from './common/components/alert';
-
+import GlobalErrorBoundary from './common/components/ErrorBoundry';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistedStore}>
         <AlertProvider alert={<Alert/>}>
-          <App/>
+          <GlobalErrorBoundary>
+            <App/>
+          </GlobalErrorBoundary>
         </AlertProvider>
       </PersistGate>
     </Provider>
