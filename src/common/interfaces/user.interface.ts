@@ -1,19 +1,14 @@
 export interface User {
-    email: string,
-    avatar: string,
-    tokens?: {
+    username: string,
+    tokens: {
         accessToken: {
             data: string,
-            ttl: number // ttl = Time To Live
+            ttl?: number // miliseconds
         }
         refreshToken?: {
             data: string,
-            ttl: number
+            ttl?: number // miliseconds
         },
     },
     
-}
-
-export interface UserProfile {
-
 }
