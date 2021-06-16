@@ -1,12 +1,17 @@
+import { CandidateStatus } from "../types/candidate.types";
+import { Exam } from "./exam.interface";
+
 export interface Candidate {
     id: string;
+    exam: Exam;
     email: string;
     otp: string;
     stringToSign: string;
-    cipher: string;
+    signature: string;
     status: CandidateStatus;
-    setCipher(key: JSON): Promise<void>;
-    isValidCipher(): Promise<boolean>;
+    getStringToSign(): string;
+    getCandidateKey(): Promise<JSON>;
+    sign(key: string): Promise<void>;
 }
 
 export interface VerifiedCandidate extends Candidate {
@@ -14,8 +19,4 @@ export interface VerifiedCandidate extends Candidate {
     // eg: Photos of the the candidates themselves, Device Information etc.
 };
 
-export enum CandidateStatus {
-    PENDING,
-    APPROVED,
-    REJECTED
-}
+    

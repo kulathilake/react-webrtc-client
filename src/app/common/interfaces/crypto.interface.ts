@@ -1,7 +1,7 @@
 export interface Crypto {
-    getCandidateKeys(): Promise<JSON>;
-    generateSecret(): Promise<JSON>;
+    getCandidateKeys(): Promise<string>;
+    generateSecret(): Promise<string>;
     signString(stringToSign: string): Promise<string>;
-    encrypt(string: string, key: JSON): Promise<string>;
-    decrypt(cipher: string, key: JSON): Promise<string>;
+    encrypt(string: string, key: string): Promise<string>;
+    decrypt(cipher: string, key: string): Promise<string>;
 }

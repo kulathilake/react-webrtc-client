@@ -1,3 +1,4 @@
+import { ExamSchedule } from "../types/exam.types";
 import { Candidate } from "./candidate.interface";
 
 export interface Exam {
@@ -6,13 +7,14 @@ export interface Exam {
     schedule: ExamSchedule;
     questions: ExamQuestion[];
     candidates: Candidate[];
-    secretKey: string;
+    secretKey: JSON;
     setTitle(title: string): void;
     setSchedule(schedule: ExamSchedule): void;
     addQuestion(question: ExamQuestion): void;
     deleteQuestion(question: ExamQuestion) : void;
     getQuestion(id: string): ExamQuestion;
-    encryptExamination(): Exam;
+    encryptQuestions(): Promise<void>;
+    decryptQuestions(): Promise<void>;
 };
 
 export interface ExamQuestion {
@@ -32,14 +34,3 @@ export interface ExamQuestion {
     reorderChildQuestion(question:ExamQuestion, newPosition: number): void;
 }
 
-export type ExamSampleAnswer = {
-    examId: string;
-    questionId: string;
-    answer: string;
-}
-
-export type ExamSchedule = {
-    start: Date;
-    end: Date;
-    duration: number;
-};
