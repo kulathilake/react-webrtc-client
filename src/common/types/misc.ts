@@ -40,10 +40,11 @@ export type Coordinates = {
 /**
  * Temporal Types
  */
-export interface Temporal<T> {
-    timestamp: BigInt;
+export interface ITemporal<T> {
+    timestamp: Date;
     state: T;
-    setTimestamp: (time:Date|BigInt) => void;
-    setStateAtTime: (time: Date|BigInt, state: T) => void;
+    setTimestamp(time: Date): void;
+    setStateAtTime(time: Date, state: T): void;
+    autoTick(interval: number, callback: (state:T)=>T): void;
 };
 

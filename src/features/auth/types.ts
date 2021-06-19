@@ -1,4 +1,3 @@
-import { MovingCoordinates } from "../../common/types/misc";
 import { User } from "../../common/types/user";
 
 export interface AuthWrapperProps{
