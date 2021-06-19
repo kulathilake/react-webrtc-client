@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { User } from "../../common/types/user";
+import { AuthenticatedUser } from "../../common/types/user";
 import { AuthContextType } from "../../common/types/auth";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType); //TODO: AuthContextInterface
@@ -8,7 +8,7 @@ const {Consumer: AuthConsumer, Provider} = AuthContext;
 
 function AuthProvider(props: any) {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [user, setUser] = useState<User|null>(null);
+    const [user, setUser] = useState<AuthenticatedUser|null>(null);
     
     /**
      * Attaches the bearer token to the requests when the user exists

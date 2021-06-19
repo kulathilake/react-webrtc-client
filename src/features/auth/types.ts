@@ -1,3 +1,6 @@
+import { MovingCoordinates } from "../../common/types/misc";
+import { User } from "../../common/types/user";
+
 export interface AuthWrapperProps{
     setAlert: () => void;
     onLogin: (email: string, password: string) => void;
@@ -14,4 +17,11 @@ export interface AuthWrapperProps{
   
   export interface SignupViewProps extends LoginViewProps{
       
+  }
+
+  export type AuthState = {
+      session?: {
+          loggedInAt: Date;
+          user: User;
+        },
   }

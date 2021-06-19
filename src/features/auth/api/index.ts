@@ -1,7 +1,7 @@
 import { User } from "../../../common/types/user";
 import { IAuthApi } from "../../../common/types/auth";
 
-export class AuthApi implements IAuthApi{
+export default class AuthApi implements IAuthApi{
     private static instance: AuthApi | null;
     static getApi() {
         if(this.instance) {
