@@ -1,6 +1,6 @@
 import React from "react"
 import { useAlert } from "../../../app/hooks"
-import { AlertProps } from "../../types/alert.types";
+import { AlertProps } from "../../types/alert";
 
 export default function withAlertContext (AlertComponent: React.ComponentType<AlertProps>): React.FC{
     return  () => {

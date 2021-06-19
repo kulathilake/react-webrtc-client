@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route, } from "react-router-dom";
-import { RouterProps } from "../../types/route.types";
+import { RouterProps } from "../../types/routes";
 import withRouteProtection from "./withRouteProtection";
 
 export default function MainRoutes(props:RouterProps){

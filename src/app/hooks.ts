@@ -3,9 +3,9 @@
  */
 import { useContext } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { AlertContextType } from '../common/types/alert.types';
+import { AlertContextType } from '../common/types/alert';
 import AlertContext from './context/alert';
-import { AuthContextType } from '../common/types/auth.types';
+import { AuthContextType } from '../common/types/auth';
 import type { RootState, AppDispatch } from './store';
 import AuthContext from './context/auth';
 

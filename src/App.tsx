@@ -1,6 +1,6 @@
 import { routes } from "./app/routes";
 import MainRoutes from "./common/components/routes/MainRoutes";
-import SignupView from "./features/auth/SIgnupView";
+
 function App() {
 
   return (

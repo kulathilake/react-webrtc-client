@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Permissions } from "./auth.types";
+import { Permissions } from "./auth";
 
 export type Route = {
     path: string;

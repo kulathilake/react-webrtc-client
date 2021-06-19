@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { User } from "../../common/interfaces/user.interface";
-import { AuthContextType } from "../../common/types/auth.types";
+import { User } from "../../common/types/user";
+import { AuthContextType } from "../../common/types/auth";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType); //TODO: AuthContextInterface
 const {Consumer: AuthConsumer, Provider} = AuthContext;

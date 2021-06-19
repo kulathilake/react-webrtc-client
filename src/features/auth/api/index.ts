@@ -1,5 +1,5 @@
-import { User } from "../../../common/interfaces/user.interface";
-import { IAuthApi } from "../../../common/interfaces/auth.interface";
+import { User } from "../../../common/types/user";
+import { IAuthApi } from "../../../common/types/auth";
 
 export class AuthApi implements IAuthApi{
     private static instance: AuthApi | null;

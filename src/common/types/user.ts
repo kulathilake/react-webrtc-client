@@ -1,4 +1,4 @@
-import { Permissions } from "../types/auth.types";
+import { Permissions } from "./auth";
 
 export interface User {
     username: string,

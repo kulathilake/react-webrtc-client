@@ -1,5 +1,5 @@
-import { AuthProvider } from "../types/backend-provider.types";
-import { User } from "./user.interface";
+import { AuthProvider } from "./providers";
+import { User } from "./user";
 
 export interface IAuthApi {
      /**
@@ -30,3 +30,15 @@ export interface IAuthApi {
     //   getUserProfile(): UserProfile;
       getSession(): any;
 };
+
+export type AuthContextType = {
+  isAuthenticated: boolean;
+  setIsAuthenticated: (value:boolean) => void;
+  user: User | null;
+  setUser: (user:User) => void;
+}
+
+export enum Permissions {
+  
+}
+
