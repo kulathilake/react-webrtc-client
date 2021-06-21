@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthWrapperProps } from "../types";
+import { AuthWrapperProps } from "../types/types";
 
 export default function withAuthContext <T extends AuthWrapperProps>(Component: React.ComponentType<T>)
 : React.FC<Omit<T, keyof AuthWrapperProps>>{

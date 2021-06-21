@@ -1,4 +1,4 @@
-import { LoginViewProps } from "./types";
+import { LoginViewProps } from "./types/types";
 import withAuthContext from "./components/withAuthContext";
 
 /**

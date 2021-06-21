@@ -1,4 +1,4 @@
-import { SignupViewProps } from "./types";
+import { SignupViewProps } from "./types/types";
 import withAuthContext from "./components/withAuthContext";
 
 export function SignupView(props: SignupViewProps){
