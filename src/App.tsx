@@ -5,7 +5,6 @@ function App() {
 
   return (
     <div className="App">
-      Hello
         <MainRoutes routes={routes} redirect='/login'/>
     </div>
   );
