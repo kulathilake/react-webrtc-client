@@ -6,7 +6,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AlertContextType } from '../common/types/alert';
 import AlertContext from './context/alert';
 import { AuthContextType } from '../common/types/auth';
-import type { RootState, AppDispatch } from './store';
+import type { RootState, AppDispatch } from './redux/store';
 import AuthContext from './context/auth';
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
