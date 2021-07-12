@@ -1,3 +1,5 @@
+# Open Debating Web Client
+Open Debating web client is a WebRTC based debating platform.
 # Generic SPA Client
 Boiler plate code for a general purpose single page web application client.
 
