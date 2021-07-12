@@ -1,5 +1,5 @@
 import React from "react";
-import { FeatureWrapperProps } from "../types";
+import { MainStreamWrapperProps } from "../types";
 
 /**
  * A Higher Order Component to inject props and more importantly 
@@ -15,8 +15,8 @@ import { FeatureWrapperProps } from "../types";
  * implementation details.
  * @param Component 
  */
-export default function withInjectedProps <P extends FeatureWrapperProps>
-(Component: React.ComponentType<P>):React.FC<Omit<P, keyof FeatureWrapperProps>> {
+export default function withInjectedProps <P extends MainStreamWrapperProps>
+(Component: React.ComponentType<P>):React.FC<Omit<P, keyof MainStreamWrapperProps>> {
     return function WrappedFeatureComponent(props){
         /**
          * Add stuff to inject.
