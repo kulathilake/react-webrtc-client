@@ -38,7 +38,10 @@ export type AuthContextType = {
   setUser: (user:AuthenticatedUser) => void;
 }
 
-export enum Permissions {
-  
+export enum Roles {
+  ADMIN,
+  MODERATOR,
+  DEBATOR,
+  SPECTATOR,
 }
 
