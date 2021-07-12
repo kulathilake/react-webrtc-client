@@ -10,6 +10,7 @@ export function MainStreamView(props: MainStreamViewProps){
                 src={props.link}
                 width={props.width || 500} 
                 height={props.height || 300}
+                allowFullScreen={props.allowFullscreen}
             />
             {/* Control Panel */}
             <MainStreamControlPanel {...props}/>

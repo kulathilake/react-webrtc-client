@@ -2,21 +2,22 @@ import { Roles } from "../../../common/types/auth";
 
 export type MainStreamViewProps =  MainStreamWrapperProps & {
     link: string;
+    provider: StreamProvider;
+    role: Roles
     title: string;
     width?: number;
     height?: number;
 }
 
 export type MainStreamWrapperProps = {
-    provider: StreamProvider;
-    role: Roles
+    allowFullscreen?: boolean;
     startTestTransmission(): void;
     startLiveTransmission(): void;
     stopTransmission(): void;
 };
 
-export type MainStreamControlPanelProps = Omit <MainStreamWrapperProps,"provider"> & {
-
+export type MainStreamControlPanelProps = MainStreamWrapperProps & {
+    role: Roles;
 }
 
 export enum StreamProvider {

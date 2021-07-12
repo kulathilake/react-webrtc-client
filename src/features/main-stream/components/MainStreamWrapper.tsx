@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Roles } from "../../../common/types/auth";
-import { MainStreamWrapperProps, StreamProvider } from "../types";
+import { MainStreamViewProps, MainStreamWrapperProps, StreamProvider } from "../types";
 
 /**
  * A Higher Order Component to inject props and more importantly 
@@ -16,8 +16,8 @@ import { MainStreamWrapperProps, StreamProvider } from "../types";
  * implementation details.
  * @param Component 
  */
-export default function withInjectedProps <P extends MainStreamWrapperProps>
-(Component: React.ComponentType<P>):React.FC<P> {
+export default function withInjectedProps <P extends MainStreamViewProps>
+(Component: React.ComponentType<P>):React.FC<Omit<P, keyof MainStreamWrapperProps>>{
     return function WrappedFeatureComponent(props){
         const [isAdmin,setIsAdmin] = useState(false);
         const [isModerator, setIsModerator] = useState(false);
@@ -87,6 +87,7 @@ export default function withInjectedProps <P extends MainStreamWrapperProps>
                 startTestTransmission = {startTestTransmission}
                 startLiveTransmission = {startLiveTransmission} 
                 stopTransmission={stopTransmission}
+                allowFullscreen={props.role === Roles.SPECTATOR}
                 //Override props here.
             />
         )}
