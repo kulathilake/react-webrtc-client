@@ -1,14 +1,20 @@
 import { MainStreamViewProps } from "./types";
 import MainStreamWrapper from "./components/MainStreamWrapper";
+import MainStreamControlPanel from "./components/MainStreamControlPanel";
 
 export function MainStreamView(props: MainStreamViewProps){
     return (
-        <iframe 
-            title={props.title}
-            src={props.link}
-            width={props.width || 500} 
-            height={props.height || 300}/>
+        <div>
+            <iframe 
+                title={props.title}
+                src={props.link}
+                width={props.width || 500} 
+                height={props.height || 300}
+            />
+            {/* Control Panel */}
+            <MainStreamControlPanel {...props}/>
+        </div>
     );
 };
 
-export default  MainStreamWrapper<MainStreamViewProps>(MainStreamView);
+export default MainStreamWrapper<MainStreamViewProps>(MainStreamView);

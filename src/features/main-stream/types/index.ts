@@ -15,6 +15,10 @@ export type MainStreamWrapperProps = {
     stopTransmission(): void;
 };
 
+export type MainStreamControlPanelProps = Omit <MainStreamWrapperProps,"provider"> & {
+
+}
+
 export enum StreamProvider {
     YOUTUBE,
     FACEBOOK,
