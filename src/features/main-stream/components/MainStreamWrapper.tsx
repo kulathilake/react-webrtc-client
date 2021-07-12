@@ -1,5 +1,6 @@
-import React from "react";
-import { MainStreamWrapperProps } from "../types";
+import React, { useEffect, useState } from "react";
+import { Roles } from "../../../common/types/auth";
+import { MainStreamWrapperProps, StreamProvider } from "../types";
 
 /**
  * A Higher Order Component to inject props and more importantly 
@@ -16,13 +17,76 @@ import { MainStreamWrapperProps } from "../types";
  * @param Component 
  */
 export default function withInjectedProps <P extends MainStreamWrapperProps>
-(Component: React.ComponentType<P>):React.FC<Omit<P, keyof MainStreamWrapperProps>> {
+(Component: React.ComponentType<P>):React.FC<P> {
     return function WrappedFeatureComponent(props){
+        const [isAdmin,setIsAdmin] = useState(false);
+        const [isModerator, setIsModerator] = useState(false);
         /**
-         * Add stuff to inject.
+         * Select Methods based on User Role and Provider
          */
+        
+        /**
+         * Set the current vieweing mode based on user role.
+         */
+        useEffect(()=>{
+            if(props.role === Roles.ADMIN) {
+                setIsAdmin(true);
+                setIsModerator(true);
+            }else if (props.role === Roles.MODERATOR) {
+                setIsAdmin(false);
+                setIsModerator(true);
+            } else {
+                setIsAdmin(false);
+                setIsModerator(false);
+            }
+        },[props]);
+
+        /**
+         * Main Stream Controls
+         */
+        const startTestTransmission = () => {
+            if(!isAdmin || !isModerator) throw new Error("Unauthorized Action");
+            switch(props.provider){
+                case StreamProvider.YOUTUBE:
+                    break;
+                case StreamProvider.FACEBOOK:
+                    break;
+                case StreamProvider.ZOOM:
+                    break;
+            }
+        };
+
+        const startLiveTransmission = () => {
+            if(!isAdmin || !isModerator) throw new Error("Unauthorized Action");
+            switch(props.provider){
+                case StreamProvider.YOUTUBE:
+                    break;
+                case StreamProvider.FACEBOOK:
+                    break;
+                case StreamProvider.ZOOM:
+                    break;
+            }
+        };
+
+        const stopTransmission = () => {
+            if(!isAdmin || !isModerator) throw new Error("Unauthorized Action");
+            switch(props.provider){
+                case StreamProvider.YOUTUBE:
+                    break;
+                case StreamProvider.FACEBOOK:
+                    break;
+                case StreamProvider.ZOOM:
+                    break;
+            }
+        };
+
+
+
         return(
-            <Component {...(props as P)} 
+            <Component {...(props as P)}
+                startTestTransmission = {startTestTransmission}
+                startLiveTransmission = {startLiveTransmission} 
+                stopTransmission={stopTransmission}
                 //Override props here.
             />
         )}

@@ -11,4 +11,4 @@ export function MainStreamView(props: MainStreamViewProps){
     );
 };
 
-export default MainStreamWrapper<MainStreamViewProps>(MainStreamView);
+export default  MainStreamWrapper<MainStreamViewProps>(MainStreamView);
