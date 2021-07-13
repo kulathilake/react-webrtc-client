@@ -1,4 +1,4 @@
-import { MainStreamViewProps } from "./types";
+import { MainStreamControlPanelProps, MainStreamViewProps } from "./types";
 import MainStreamWrapper from "./components/MainStreamWrapper";
 import MainStreamControlPanel from "./components/MainStreamControlPanel";
 
@@ -13,7 +13,7 @@ export function MainStreamView(props: MainStreamViewProps){
                 allowFullScreen={props.allowFullscreen}
             />
             {/* Control Panel */}
-            <MainStreamControlPanel {...props}/>
+            <MainStreamControlPanel {...props as MainStreamControlPanelProps}/>
         </div>
     );
 };
