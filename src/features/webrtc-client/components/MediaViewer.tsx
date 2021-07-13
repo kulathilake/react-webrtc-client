@@ -9,7 +9,9 @@ export default function MediaViewer(props: MediaViewerProps){
             {
                 video:true, 
                 audio:{
-                    echoCancellation: true
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    autoGainControl: false 
                 }}
             )
         .then(stream => {
@@ -34,6 +36,7 @@ export default function MediaViewer(props: MediaViewerProps){
             {/* Audio Monitor */}
             <AudioMonitor stream={stream!} />
             {/* Recording Controllers */}
+            
         </div>
     )
 }

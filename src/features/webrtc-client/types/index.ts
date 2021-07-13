@@ -8,5 +8,10 @@ export type MediaViewerProps = {
 }
 
 export type AudioMonitorProps = {
-    stream: MediaStream
+    stream: MediaStream;
+}
+
+export type OnMessageCallback = {
+    desc: RTCSessionDescription;
+    candidate: RTCIceCandidate;
 }
