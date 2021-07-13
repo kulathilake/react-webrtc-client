@@ -24,13 +24,13 @@ pc.onnegotiationneeded = async () => {
 }
 
 /** Callback for signalling recieves a message from a peer */
-export async function onMessageCallback({candidate,desc}:OnMessageCallback){
+export async function onMessageCallback({candidate,desc,stream}:OnMessageCallback){
     try{
         if(desc){
             if(desc.type === 'offer'){
-
+                await pc.setRemoteDescription(desc);
             } else if (desc.type === 'answer') {
-
+                await pc.setRemoteDescription(desc);
             } else {
                 throw new Error("Unsupported Description")
             }
@@ -43,4 +43,13 @@ export async function onMessageCallback({candidate,desc}:OnMessageCallback){
     }
 }
 
+export function addStream(stream: MediaStream) {
+    try{
+        stream.getTracks().forEach(track => {
+            pc.addTrack(track,stream);
+        })
+    } catch (error) {
+        throw error;
+    }
+}
  

@@ -12,6 +12,7 @@ export type AudioMonitorProps = {
 }
 
 export type OnMessageCallback = {
-    desc: RTCSessionDescription;
-    candidate: RTCIceCandidate;
+    desc?: RTCSessionDescription;
+    candidate?: RTCIceCandidate;
+    stream?: MediaStream
 }
