@@ -1,5 +1,5 @@
 import { User } from "../../../common/types/user";
-import { OnMessageCallback, SendSignal, SignallingConfig } from "../types";
+import { OnMessageCallback, Send, SignallingConfig } from "../types";
 const url = process.env.REACT_APP_STUN_URL || 'wss://echo.websocket.org';
 
 export default class Signalling {
@@ -16,8 +16,8 @@ export default class Signalling {
         };
     }
   
-    async send(data: SendSignal):Promise<void>{
-        throw new Error("Method not implemented");
+    async send<T>(data: Send<T>):Promise<void>{
+        console.log(data);
     }
 
 }

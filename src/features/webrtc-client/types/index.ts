@@ -23,7 +23,13 @@ export type SignallingConfig = {
     user: User;
     onMessageCallback: (data:OnMessageCallback) => void
 }
-export type SendSignal = {
-    type: 'candidate' | 'description' ;
-    payload?: RTCIceCandidate | RTCSessionDescription; 
+export type Send<T> = {
+    type: 'candidate' | 'description' | 'init';
+    payload?: T ; 
+}
+
+export type Init = {
+    eventId: string;
+    sender: User;
+    receiever: User;
 }
