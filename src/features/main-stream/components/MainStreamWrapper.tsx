@@ -22,10 +22,6 @@ export default function withInjectedProps <P extends MainStreamViewProps>
         const [isAdmin,setIsAdmin] = useState(false);
         const [isModerator, setIsModerator] = useState(false);
         /**
-         * Select Methods based on User Role and Provider
-         */
-        
-        /**
          * Set the current vieweing mode based on user role.
          */
         useEffect(()=>{
