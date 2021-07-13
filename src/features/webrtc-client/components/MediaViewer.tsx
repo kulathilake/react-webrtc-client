@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { MediaViewerProps } from "../types";
+import AudioMonitor from "./AudioMonitor";
 
 export default function MediaViewer(props: MediaViewerProps){
     const [stream,setStream] = useState<MediaStream|null>(null);
@@ -30,8 +31,8 @@ export default function MediaViewer(props: MediaViewerProps){
                 muted={props.muted}
                 />
             }
-            {/* Audio Spectrum */}
-
+            {/* Audio Monitor */}
+            <AudioMonitor stream={stream!} />
             {/* Recording Controllers */}
         </div>
     )
