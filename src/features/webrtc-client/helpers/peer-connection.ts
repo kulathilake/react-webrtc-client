@@ -1,10 +1,9 @@
-import { User } from "../../../common/types/user";
-import { OnMessageCallback } from "../types";
+import { Init, OnMessageCallback, WebRTCPeerConnConfig } from "../types";
 import Signalling from "./signalling";
 const config: RTCConfiguration = {
     iceServers: [
         {
-            urls: 'stuns:stun.example.org'
+            urls: process.env.REACT_APP_STUN_SERVER || 'stun:stun.12connect.com:3478'
         }
     ]
 }
@@ -12,18 +11,21 @@ const config: RTCConfiguration = {
 export default class WebRTCPeerConn {
     private pc: RTCPeerConnection;
     signal: Signalling;
-    constructor(user:User){
+    constructor(webrtcConfig:WebRTCPeerConnConfig){
         this.pc = new RTCPeerConnection(config);
         this.signal = new Signalling({
-            user: user,
+            sender: webrtcConfig.sender,
+            reciever: webrtcConfig.reciever,
+            event: webrtcConfig.event,
             onMessageCallback: this.onMessageCallback
         })
+        
         this.pc.onicecandidate = ({candidate})=>{
             if(candidate){
-                this.signal.send({
-                    type: "candidate",
-                    payload: candidate!
-                });
+                // this.signal.send<RTCIceCandidate>({
+                //     type: "candidate",
+                //     payload: candidate!
+                // });
             }
         }
         
@@ -62,7 +64,6 @@ export default class WebRTCPeerConn {
     addStream(stream: MediaStream) {
         try{
             stream.getTracks().forEach(track => {
-                console.log(this);
                 this.pc.addTrack(track,stream);
             })
         } catch (error) {

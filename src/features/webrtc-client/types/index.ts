@@ -19,8 +19,12 @@ export type OnMessageCallback = {
     candidate?: RTCIceCandidate;
 }
 
-export type SignallingConfig = {
-    user: User;
+export type WebRTCPeerConnConfig = {
+    sender: User;
+    reciever: User;
+    event: string;
+}
+export type SignallingConfig = WebRTCPeerConnConfig & {
     onMessageCallback: (data:OnMessageCallback) => void
 }
 export type Send<T> = {
