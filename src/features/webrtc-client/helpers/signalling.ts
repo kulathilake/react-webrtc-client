@@ -1,6 +1,6 @@
 import { User } from "../../../common/types/user";
 import { OnMessageCallback, SendSignal, SignallingConfig } from "../types";
-const url = process.env.REACT_APP_STUN_URL || '';
+const url = process.env.REACT_APP_STUN_URL || 'wss://echo.websocket.org';
 
 export default class Signalling {
     private user: User;

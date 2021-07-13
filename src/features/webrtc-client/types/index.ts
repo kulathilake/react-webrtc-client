@@ -2,11 +2,12 @@ import { User } from "../../../common/types/user";
 
 export type WebRtcClientWrapperProps = {}
 export type WebRtcClientProps = WebRtcClientWrapperProps & {
-
+    recipient: User;
 };
 
 export type MediaViewerProps = {
-    muted: boolean
+    muted: boolean,
+    addStream: (stream: MediaStream) => void;
 }
 
 export type AudioMonitorProps = {

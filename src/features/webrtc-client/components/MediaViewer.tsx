@@ -15,12 +15,13 @@ export default function MediaViewer(props: MediaViewerProps){
                 }}
             )
         .then(stream => {
+            props.addStream(stream);
             setStream(stream);
         })
         .catch(error => {
             console.log(error);
         })
-    },[]);
+    },[props]);
     return (
         <div>
             {stream&&

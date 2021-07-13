@@ -36,6 +36,8 @@ export default class WebRTCPeerConn {
             }
         }
         
+        /** Method bindings */
+        this.addStream = this.addStream.bind(this);
     }
 
     private async onMessageCallback({candidate,desc}:OnMessageCallback){
@@ -57,13 +59,14 @@ export default class WebRTCPeerConn {
         }
     }
 
-    async addStream(stream: MediaStream) {
+    addStream(stream: MediaStream) {
         try{
             stream.getTracks().forEach(track => {
+                console.log(this);
                 this.pc.addTrack(track,stream);
             })
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }
 
