@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import { MediaViewerProps } from "../types";
 
-export default function MediaViewer(){
+export default function MediaViewer(props: MediaViewerProps){
     const [stream,setStream] = useState<MediaStream|null>(null);
     useEffect(()=>{
         navigator.mediaDevices.getUserMedia(
@@ -26,9 +27,12 @@ export default function MediaViewer(){
                     }
                 }}
                 autoPlay={true}
-                muted={true}
+                muted={props.muted}
                 />
             }
+            {/* Audio Spectrum */}
+
+            {/* Recording Controllers */}
         </div>
     )
 }
