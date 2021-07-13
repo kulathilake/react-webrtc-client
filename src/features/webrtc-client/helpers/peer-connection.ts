@@ -1,5 +1,6 @@
+import { User } from "../../../common/types/user";
 import { OnMessageCallback } from "../types";
-
+import Signalling from "./signalling";
 const config: RTCConfiguration = {
     iceServers: [
         {
@@ -8,48 +9,71 @@ const config: RTCConfiguration = {
     ]
 }
 
-export const pc = new RTCPeerConnection(config);
-
-pc.onicecandidate = ({candidate})=>{
-    // TODO send candidate to peer through signalling server
-}
-
-pc.onnegotiationneeded = async () => {
-    try {
-        await pc.setLocalDescription( await pc.createOffer());
-        // TODO send local description to peer through signalling server
-    } catch (error) {
-        throw new Error("Connection Negotiation Error");
+export default class WebRTCPeerConn {
+    private pc: RTCPeerConnection;
+    signal: Signalling;
+    constructor(user:User){
+        this.pc = new RTCPeerConnection(config);
+        this.signal = new Signalling({
+            user: user,
+            onMessageCallback: this.onMessageCallback
+        })
+        this.pc.onicecandidate = ({candidate})=>{
+            if(candidate){
+                this.signal.send({
+                    type: "candidate",
+                    payload: candidate!
+                });
+            }
+        }
+        
+        this.pc.onnegotiationneeded = async () => {
+            try {
+                await this.pc.setLocalDescription( await this.pc.createOffer());
+                // TODO send local description to peer through signalling server
+            } catch (error) {
+                throw new Error("Connection Negotiation Error");
+            }
+        }
+        
     }
+
+    private async onMessageCallback({candidate,desc}:OnMessageCallback){
+        try{
+            if(desc){
+                if(desc.type === 'offer'){
+                    await this.pc.setRemoteDescription(desc);
+                } else if (desc.type === 'answer') {
+                    await this.pc.setRemoteDescription(desc);
+                } else {
+                    throw new Error("Unsupported Description")
+                }
+        
+            }else if(candidate){
+                await this.pc.addIceCandidate(candidate);
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async addStream(stream: MediaStream) {
+        try{
+            stream.getTracks().forEach(track => {
+                this.pc.addTrack(track,stream);
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
+
+
 
 /** Callback for signalling recieves a message from a peer */
-export async function onMessageCallback({candidate,desc,stream}:OnMessageCallback){
-    try{
-        if(desc){
-            if(desc.type === 'offer'){
-                await pc.setRemoteDescription(desc);
-            } else if (desc.type === 'answer') {
-                await pc.setRemoteDescription(desc);
-            } else {
-                throw new Error("Unsupported Description")
-            }
-    
-        }else if(candidate){
-            await pc.addIceCandidate(candidate);
-        }
-    } catch (error) {
-        throw error;
-    }
-}
 
-export function addStream(stream: MediaStream) {
-    try{
-        stream.getTracks().forEach(track => {
-            pc.addTrack(track,stream);
-        })
-    } catch (error) {
-        throw error;
-    }
-}
+
+
+
  

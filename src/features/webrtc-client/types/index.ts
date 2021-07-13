@@ -1,3 +1,5 @@
+import { User } from "../../../common/types/user";
+
 export type WebRtcClientWrapperProps = {}
 export type WebRtcClientProps = WebRtcClientWrapperProps & {
 
@@ -14,5 +16,13 @@ export type AudioMonitorProps = {
 export type OnMessageCallback = {
     desc?: RTCSessionDescription;
     candidate?: RTCIceCandidate;
-    stream?: MediaStream
+}
+
+export type SignallingConfig = {
+    user: User;
+    onMessageCallback: (data:OnMessageCallback) => void
+}
+export type SendSignal = {
+    type: 'candidate' | 'description' ;
+    payload?: RTCIceCandidate | RTCSessionDescription; 
 }
