@@ -5,6 +5,7 @@ import AudioMonitor from "./AudioMonitor";
 export default function MediaViewer(props: MediaViewerProps){
     const [stream,setStream] = useState<MediaStream|null>(null);
     useEffect(()=>{
+       
         navigator.mediaDevices.getUserMedia(
             {
                 video:true, 

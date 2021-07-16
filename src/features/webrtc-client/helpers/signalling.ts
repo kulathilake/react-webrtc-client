@@ -1,5 +1,5 @@
 import { User } from "../../../common/types/user";
-import { Init, OnMessageCallback, Send, SignallingConfig } from "../types";
+import { InboundSignal, Init, OnMessageCallback, Send, SignallingConfig } from "../types";
 const url = process.env.REACT_APP_SIGNALLING_SERVER_URL || 'ws://localhost:8080';
 
 export default class Signalling {
@@ -13,17 +13,26 @@ export default class Signalling {
         this.reciever = config.reciever;
         this.event = config.event;
         if(this.connection){
-            this.connection.onmessage = (event: MessageEvent<OnMessageCallback>) => {
-                console.log(event.data);
-                config.onMessageCallback({
-                    candidate: event.data.candidate,
-                    desc: event.data.desc
-                })
+            this.connection.onmessage = (event: MessageEvent) => {
+                try{
+                    const data = JSON.parse(event.data) as InboundSignal<any>;
+                    console.log(data);
+                    config.onMessageCallback(data);
+                } catch (error) {
+                    console.log(error);
+                }   
             };
             // this.connection.onopen = console.log;
             this.connection.onerror = console.log;
             this.connection.onopen = (e)=>{
-                this.init();
+                this.send<Init>({
+                    type: 'init',
+                    payload: {
+                        eventId: this.event,
+                        receiever: this.reciever,
+                        sender: this.sender,
+                    }
+                })
             }
         }
     }
@@ -34,17 +43,6 @@ export default class Signalling {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    init():void{
-        this.send<Init>({
-            type: 'init',
-            payload: {
-                eventId: this.event,
-                receiever: this.reciever,
-                sender: this.sender
-            }
-        });
     }
 
 }

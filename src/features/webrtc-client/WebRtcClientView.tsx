@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { WebRtcClientProps } from "./types";
 import withInjectedProps from "./components/withInjectedProps";
 import MediaViewer from "./components/MediaViewer";
@@ -18,20 +19,16 @@ export function WebRtcClientView(props: WebRtcClientProps){
                 reciever: {username:reciever, permissions:[]},
                 sender: {username: sender,permissions:[]}
             });
-            const stream = new MediaStream();
-            conn.addStream(stream);
             setConnRef(conn);
         }
     },[send]);
-
-    const addStreamStub = (stream: MediaStream) => {}
     
         return (
             <>
             <input onChange={e=>setSender(e.target.value)}/>
             <input onChange={e=>setReciever(e.target.value)}/>
             <button onClick={()=>setSend(true)}>Send</button>
-                {connRef&&<MediaViewer muted={true} addStream={addStreamStub}/>}
+                {connRef&&<MediaViewer muted={true} addStream={connRef.addStream}/>}
             </>
         )
     
