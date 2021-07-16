@@ -1,8 +1,8 @@
-import { FeatureMainViewProps } from "./types";
+import { ZoomClientViewProps } from "./types";
 import withInjectedProps from "./components/ZoomClientWrapper";
 
 export function FeatureMainView(){
     return null;
 };
 
-export default withInjectedProps<FeatureMainViewProps>(FeatureMainView);
+export default withInjectedProps<ZoomClientViewProps>(FeatureMainView);
