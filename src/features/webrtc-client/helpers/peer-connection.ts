@@ -1,4 +1,4 @@
-import { Init, OnMessageCallback, WebRTCPeerConnConfig } from "../types";
+import { OnMessageCallback, WebRTCPeerConnConfig } from "../types";
 import Signalling from "./signalling";
 const config: RTCConfiguration = {
     iceServers: [
@@ -22,10 +22,10 @@ export default class WebRTCPeerConn {
         
         this.pc.onicecandidate = ({candidate})=>{
             if(candidate){
-                // this.signal.send<RTCIceCandidate>({
-                //     type: "candidate",
-                //     payload: candidate!
-                // });
+                this.signal.send<RTCIceCandidate>({
+                    type: "candidate",
+                    payload: candidate!
+                });
             }
         }
         

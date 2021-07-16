@@ -28,7 +28,7 @@ export type SignallingConfig = WebRTCPeerConnConfig & {
     onMessageCallback: (data:OnMessageCallback) => void
 }
 export type Send<T> = {
-    type: 'candidate' | 'description' | 'init';
+    type: 'candidate' | 'description' | 'init' | 'terminate' | 'info';
     payload?: T ; 
 }
 
@@ -36,4 +36,8 @@ export type Init = {
     eventId: string;
     sender: User;
     receiever: User;
+}
+
+export type Info<T> = Init & {
+    message: T 
 }

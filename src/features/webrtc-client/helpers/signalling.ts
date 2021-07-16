@@ -14,21 +14,23 @@ export default class Signalling {
         this.event = config.event;
         if(this.connection){
             this.connection.onmessage = (event: MessageEvent<OnMessageCallback>) => {
+                console.log(event.data);
                 config.onMessageCallback({
                     candidate: event.data.candidate,
                     desc: event.data.desc
                 })
             };
-            this.connection.onopen = console.log;
+            // this.connection.onopen = console.log;
             this.connection.onerror = console.log;
-            this.connection.onopen = this.init;
-            console.log(this.connection);
+            this.connection.onopen = (e)=>{
+                this.init();
+            }
         }
     }
   
     async send<T>(data: Send<T>):Promise<void>{
         try{
-            this.connection.send("JSON.stringify(data)");
+            this.connection.send(JSON.stringify(data));
         } catch (error) {
             console.log(error);
         }
