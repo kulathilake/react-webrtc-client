@@ -1,8 +1,8 @@
-import { MainStreamControlPanelProps, MainStreamViewProps } from "./types";
-import MainStreamWrapper from "./components/MainStreamWrapper";
-import MainStreamControlPanel from "./components/MainStreamControlPanel";
+import { MainStreamControlPanelProps, MainStreamViewProps } from "../types";
+import MainStreamWrapper from "./MainStreamWrapper";
+import MainStreamControlPanel from "./MainStreamControlPanel";
 
-export function MainStreamView(props: MainStreamViewProps){
+export function MainStreamViewer(props: MainStreamViewProps){
     return (
         <div>
             <iframe 
@@ -18,4 +18,4 @@ export function MainStreamView(props: MainStreamViewProps){
     );
 };
 
-export default MainStreamWrapper<MainStreamViewProps>(MainStreamView);
+export default MainStreamWrapper<MainStreamViewProps>(MainStreamViewer);
