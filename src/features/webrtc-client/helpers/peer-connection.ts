@@ -49,7 +49,7 @@ export default class WebRTCPeerConn {
         this.pc.onnegotiationneeded = async () => {
             try {
                 const offer =  await this.pc.createOffer();
-                console.log(this.pc.signalingState);
+                console.debug(this.pc.signalingState);
                 await this.pc.setLocalDescription( offer );
                 // TODO send local description to peer through signalling server
                 this.signal.send<PeerSessionExchange>({
@@ -103,7 +103,7 @@ export default class WebRTCPeerConn {
                         } else if(connData.payload.state === 'connected'){
 
                         } else {
-                         console.log(connData);
+                         console.debug(connData);
                         }
                         break;
                     case "candidate":
@@ -122,7 +122,7 @@ export default class WebRTCPeerConn {
                              */
                             this.pc.setRemoteDescription(descData.payload.session)
                             .then(async ()=>{
-                                console.log("Recieved Offer");
+                                console.debug("Recieved Offer");
                                 const answer = await this.pc.createAnswer(); 
                                 await this.pc.setLocalDescription(answer);
                                 console.debug("Sending Answer")
@@ -138,7 +138,7 @@ export default class WebRTCPeerConn {
                             .catch(this.handleError);
                             
                         } else if (descData.payload.session.type === 'answer') {
-                            console.log("Recieved Answer");
+                            console.debug("Recieved Answer");
                             try{
                                 await this.pc.setRemoteDescription(descData.payload.session)
                             } catch (error) {
@@ -149,7 +149,7 @@ export default class WebRTCPeerConn {
                         }
                         break;
                     case "info":
-                        console.log(data.payload);
+                        console.debug(data.payload);
                         break;
                 }
           
@@ -169,7 +169,7 @@ export default class WebRTCPeerConn {
                 offerToReceiveVideo: true
             })
         } catch (error) {
-            console.log(error);
+            console.debug(error);
         }
     };
 
@@ -180,7 +180,6 @@ export default class WebRTCPeerConn {
 
 
 
-/** Callback for signalling recieves a message from a peer */
 
 
 
