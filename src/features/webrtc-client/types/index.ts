@@ -69,3 +69,14 @@ export type PeerConnection = {
 }
 
 
+// Canvas Extension
+/**
+ * Extends default HTMLCanvasElement with a new interface 
+ * to include the captureStream method, which isn't available
+ * in the type definitions as of July 2021
+ * Thanks to https://stackoverflow.com/a/53773985/5491807
+ */
+ export interface CanvasElement extends HTMLCanvasElement{
+    captureStream(frameRate?: number): MediaStream;
+}
+

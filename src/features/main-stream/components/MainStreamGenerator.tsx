@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
+import { CanvasElement } from "../../webrtc-client/types";
 import { MainStreamControlPanelProps, MainStreamGeneratorProps } from "../types";
 import MainStreamControlPanel from "./MainStreamControlPanel";
 import MainStreamWrapper from "./MainStreamWrapper";
 
 export function MainStreamGenerator(props: MainStreamGeneratorProps){
-    const canvasRef = useRef<HTMLCanvasElement|null>(null);
+    const canvasRef = useRef<CanvasElement|null>(null);
     const ctx = canvasRef.current?.getContext('2d');
 
     useEffect(()=>{
