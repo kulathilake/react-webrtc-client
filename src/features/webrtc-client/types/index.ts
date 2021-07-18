@@ -10,6 +10,7 @@ export type MediaViewerProps = {
     remote?:boolean,
     remoteStream?: MediaStream | null;
     addStream?: (stream: MediaStream) => void;
+    refForward?: (ref: HTMLVideoElement) => void;
 }
 
 export type AudioMonitorProps = {

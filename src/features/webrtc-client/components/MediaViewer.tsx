@@ -35,6 +35,9 @@ export default function MediaViewer(props: MediaViewerProps){
                 <video ref={video=> {
                     if(video){
                         video.srcObject = stream
+                        if(props.refForward){
+                            props.refForward(video);
+                        }
                     }
                 }}
                 autoPlay={true}

@@ -9,7 +9,9 @@ export default function Test(){
     
     useEffect(()=>{
         navigator.mediaDevices.getUserMedia({
-            audio: true,
+            audio: {
+                echoCancellation: true
+            },
             video: true
         })
         .then(stream=>{
@@ -20,7 +22,12 @@ export default function Test(){
     return <MainStreamGenerator
         incoming={[
             {
-                name: 'test-stream',
+                name: 'test-stream-1',
+                stream: stream!,
+                type: 'opposer'
+            },
+            {
+                name: 'test-stream-2',
                 stream: stream!,
                 type: 'opposer'
             }
