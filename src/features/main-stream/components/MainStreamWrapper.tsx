@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Roles } from "../../../common/types/auth";
-import { MainStreamViewProps, MainStreamWrapperProps, StreamProvider } from "../types";
+import { MainStreamBase,  MainStreamWrapperProps, StreamProvider } from "../types";
 
 /**
  * A Higher Order Component to inject props and more importantly 
@@ -16,7 +16,7 @@ import { MainStreamViewProps, MainStreamWrapperProps, StreamProvider } from "../
  * implementation details.
  * @param Component 
  */
-export default function withInjectedProps <P extends MainStreamViewProps>
+export default function withInjectedProps <P extends MainStreamBase>
 (Component: React.ComponentType<P>):React.FC<Omit<P, keyof MainStreamWrapperProps>>{
     return function WrappedFeatureComponent(props){
         const [isAdmin,setIsAdmin] = useState(false);

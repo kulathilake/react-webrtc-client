@@ -1,13 +1,5 @@
 import { Roles } from "../../../common/types/auth";
 
-export type MainStreamViewProps =  MainStreamWrapperProps & {
-    link: string;
-    provider: StreamProvider;
-    role: Roles
-    title: string;
-    width?: number;
-    height?: number;
-}
 
 export type MainStreamWrapperProps = {
     allowFullscreen?: boolean;
@@ -16,10 +8,30 @@ export type MainStreamWrapperProps = {
     stopTransmission(): void;
 };
 
-export type MainStreamControlPanelProps = MainStreamWrapperProps & {
-    role: Roles;
+export type MainStreamBase = MainStreamWrapperProps & {
+    role: Roles
+    provider: StreamProvider;
 }
 
+export type MainStreamViewProps =  MainStreamBase & {
+    link: string;
+    title: string;
+    width?: number;
+    height?: number;
+}
+
+export type MainStreamControlPanelProps = MainStreamBase & {
+
+}
+
+export type MainStreamGeneratorProps = MainStreamBase & {
+    incoming: IncomingVideo[];
+}
+export type IncomingVideo = {
+    stream: MediaStream,
+    type: 'proposer' | 'opposer',
+    name: string
+}
 export enum StreamProvider {
     YOUTUBE,
     FACEBOOK,
