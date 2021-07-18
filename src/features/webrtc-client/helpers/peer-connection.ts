@@ -1,5 +1,5 @@
 import { User } from "../../../common/types/user";
-import { InboundSignal, Init, OnMessageCallback, PeerConnection, PeerICEExchange, WebRTCPeerConnConfig } from "../types";
+import { InboundSignal, PeerConnection, PeerICEExchange, PeerSessionExchange, WebRTCPeerConnConfig } from "../types";
 import Signalling from "./signalling";
 const config: RTCConfiguration = {
     iceServers: [
@@ -13,18 +13,25 @@ export default class WebRTCPeerConn {
     sender: User;
     reciever: User;
     connReady: boolean;
+    candidates: RTCIceCandidate[];
+    remoteStream: MediaStream | null;
+    handleError: <T extends Error>(error:T) => void;
     constructor(webrtcConfig:WebRTCPeerConnConfig){
         this.pc = new RTCPeerConnection(config);
         this.sender = webrtcConfig.sender;
         this.reciever = webrtcConfig.reciever;
         this.connReady = false;
+        this.remoteStream = null;
+        this.candidates = [];
+        this.handleError = webrtcConfig.onError || console.error;
         this.signal = new Signalling({
             sender: webrtcConfig.sender,
             reciever: webrtcConfig.reciever,
             event: webrtcConfig.event,
             onMessageCallback: this.onMessageCallback.bind(this)
-        })
+        });
         
+        /** Send ICE Candidate information to peer */
         this.pc.onicecandidate = ({candidate})=>{
             if(candidate){
                this.signal.send<PeerICEExchange>({
@@ -38,19 +45,46 @@ export default class WebRTCPeerConn {
             }
         }
         
+        /** Creates an offer (as the offerrer) when a send media track is added. */
         this.pc.onnegotiationneeded = async () => {
             try {
-                console.log("ON NEG");
-                await this.pc.setLocalDescription( await this.pc.createOffer());
+                const offer =  await this.pc.createOffer();
+                console.log(this.pc.signalingState);
+                await this.pc.setLocalDescription( offer );
                 // TODO send local description to peer through signalling server
+                this.signal.send<PeerSessionExchange>({
+                    type: 'desc',
+                    payload: {
+                        session: offer,
+                        from: this.sender.username,
+                        to: this.reciever.username
+                    }
+
+                });
             } catch (error) {
-                throw new Error("Connection Negotiation Error");
-            }
+                this.handleError(error);
+            };
+
         };
 
+        /** Calls on RemoteStream handler when tracks are added */
+        this.pc.ontrack = (event) => {
+            this.remoteStream = event.streams[0];
+            webrtcConfig.onRemoteStream(this.remoteStream);
+        }   
+
+        /** Add ICE candidates to connection if state is has remote-offers */
+        this.pc.onsignalingstatechange = () => {
+            if(this.pc.signalingState ==='have-remote-offer') {
+                this.candidates.forEach(async candidate => {
+                    await this.pc.addIceCandidate(candidate as RTCIceCandidate);
+                });
+            } 
+        }
 
         /** Method bindings */
         this.addStream = this.addStream.bind(this);
+        
         // Bindings for onMessageCallback is in the constructor of the signal.
     }
 
@@ -69,21 +103,49 @@ export default class WebRTCPeerConn {
                         } else if(connData.payload.state === 'connected'){
 
                         } else {
-                         console.error("Unknown");
                          console.log(connData);
                         }
                         break;
                     case "candidate":
-                        await this.pc.addIceCandidate(data.payload.candidate as RTCIceCandidate);
+                        if(this.pc.signalingState === 'have-remote-offer'){
+                            await this.pc.addIceCandidate(data.payload.candidate as RTCIceCandidate);
+                        }else {
+                            this.candidates.push(data.payload.candidate as RTCIceCandidate);
+                        }
                         break;
                     case "desc":
-                        const descData: InboundSignal<RTCSessionDescription> = data;
-                        if(descData.payload.type === 'offer'){
-                            await this.pc.setLocalDescription(await this.pc.createAnswer());
-                        } else if (descData.payload.type === 'answer') {
-                            await this.pc.setRemoteDescription(descData.payload);
+                        const descData: InboundSignal<PeerSessionExchange> = data;
+                        if(descData.payload.session.type === 'offer'){
+                            /**
+                             * Sets the remote description when a remote offer has been signalled
+                             * and send the answer in return.
+                             */
+                            this.pc.setRemoteDescription(descData.payload.session)
+                            .then(async ()=>{
+                                console.log("Recieved Offer");
+                                const answer = await this.pc.createAnswer(); 
+                                await this.pc.setLocalDescription(answer);
+                                console.debug("Sending Answer")
+                                this.signal.send<PeerSessionExchange>({
+                                    type: 'desc',
+                                    payload: {
+                                        session: answer,
+                                        from: this.sender.username,
+                                        to: this.reciever.username,
+                                    }
+                                });
+                            })
+                            .catch(this.handleError);
+                            
+                        } else if (descData.payload.session.type === 'answer') {
+                            console.log("Recieved Answer");
+                            try{
+                                await this.pc.setRemoteDescription(descData.payload.session)
+                            } catch (error) {
+                                this.handleError(error);
+                            }
                         } else {
-                            throw new Error("Unsupported Description")
+                            throw new Error("Unsupported Description");
                         }
                         break;
                     case "info":
@@ -92,7 +154,7 @@ export default class WebRTCPeerConn {
                 }
           
         } catch (error) {
-            throw error;
+            this.handleError(error);
         }
     }
 
@@ -111,6 +173,9 @@ export default class WebRTCPeerConn {
         }
     };
 
+    onPeerDisconnect(){
+
+    }
 }
 
 

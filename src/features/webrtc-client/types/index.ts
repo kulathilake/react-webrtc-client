@@ -7,7 +7,9 @@ export type WebRtcClientProps = WebRtcClientWrapperProps & {
 
 export type MediaViewerProps = {
     muted: boolean,
-    addStream: (stream: MediaStream) => void;
+    remote?:boolean,
+    remoteStream?: MediaStream | null;
+    addStream?: (stream: MediaStream) => void;
 }
 
 export type AudioMonitorProps = {
@@ -23,8 +25,10 @@ export type WebRTCPeerConnConfig = {
     sender: User;
     reciever: User;
     event: string;
+    onRemoteStream: (stream: MediaStream) => void;
+    onError?: <T extends Error>(error: T) => void;
 }
-export type SignallingConfig = WebRTCPeerConnConfig & {
+export type SignallingConfig = Omit<WebRTCPeerConnConfig,'onRemoteStream' | 'onError'> & {
     onMessageCallback: (data:InboundSignal<any>) => Promise<void>
 }
 
@@ -35,14 +39,14 @@ export type PeerICEExchange = {
     from: string;
 }
 
-export type PeerICESession = {
-    description: RTCSessionDescription;
+export type PeerSessionExchange = {
+    session: RTCSessionDescriptionInit;
     to: string;
     from: string;
 }
 // Outbound Signals
 export type Send<T> = {
-    type: 'candidate' | 'description' | 'init' | 'terminate' | 'info';
+    type: 'candidate' | 'desc' | 'init' | 'terminate' | 'info';
     payload?: T ; 
 }
 

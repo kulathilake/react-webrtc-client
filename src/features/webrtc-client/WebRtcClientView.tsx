@@ -11,13 +11,15 @@ export function WebRtcClientView(props: WebRtcClientProps){
     const [sender,setSender] = useState('');
     const [reciever,setReciever] = useState('');
     const [send,setSend] = useState(false);
+    const [remoteStream,setRemoteStream] = useState<MediaStream|null>(null)
 
     useEffect(()=>{
         if(send){
             const conn = new WebRTCPeerConn({
                 event: 'xxx',
                 reciever: {username:reciever, permissions:[]},
-                sender: {username: sender,permissions:[]}
+                sender: {username: sender,permissions:[]},
+                onRemoteStream: setRemoteStream
             });
             setConnRef(conn);
         }
@@ -28,7 +30,12 @@ export function WebRtcClientView(props: WebRtcClientProps){
             <input onChange={e=>setSender(e.target.value)}/>
             <input onChange={e=>setReciever(e.target.value)}/>
             <button onClick={()=>setSend(true)}>Send</button>
-                {connRef&&<MediaViewer muted={true} addStream={connRef.addStream}/>}
+                {connRef&&
+                <>
+                <MediaViewer muted={true} addStream={connRef.addStream}/>
+                <MediaViewer muted={true} remote={true} remoteStream={remoteStream} />
+                </>
+                }
             </>
         )
     

@@ -1,5 +1,5 @@
 import { User } from "../../../common/types/user";
-import { InboundSignal, Init, OnMessageCallback, Send, SignallingConfig } from "../types";
+import { InboundSignal, Init, Send, SignallingConfig } from "../types";
 const url = process.env.REACT_APP_SIGNALLING_SERVER_URL || 'ws://localhost:8080';
 
 export default class Signalling {
@@ -16,7 +16,6 @@ export default class Signalling {
             this.connection.onmessage = (event: MessageEvent) => {
                 try{
                     const data = JSON.parse(event.data) as InboundSignal<any>;
-                    console.log(data);
                     config.onMessageCallback(data);
                 } catch (error) {
                     console.log(error);
